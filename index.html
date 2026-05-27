@@ -31,6 +31,7 @@ border-right:1px solid rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
 padding:30px 20px;
 z-index:100;
+overflow-y:auto;
 }
 
 .logo{
@@ -115,6 +116,17 @@ z-index:-1;
 display:none;
 }
 
+.lang-btn{
+padding:10px 16px;
+border-radius:12px;
+background:#1e293b;
+transition:0.3s;
+}
+
+.lang-btn:hover{
+background:#06b6d4;
+}
+
 @media(max-width:900px){
 
 .sidebar{
@@ -123,6 +135,7 @@ display:none;
 
 .main{
 margin-left:0;
+padding:20px;
 padding-bottom:120px;
 }
 
@@ -200,16 +213,40 @@ SafeSite AI
 
 <div class="main">
 
+<div class="flex justify-end gap-3 mb-8">
+
+<button onclick="setLang('en')" class="lang-btn">
+EN
+</button>
+
+<button onclick="setLang('zh')" class="lang-btn">
+中文
+</button>
+
+<button onclick="setLang('ko')" class="lang-btn">
+한국어
+</button>
+
+</div>
+
 <div class="flex justify-between items-center flex-wrap gap-6">
 
 <div>
 
-<h1 class="text-5xl font-bold">
+<h1
+id="mainTitle"
+class="text-5xl font-bold">
+
 Enterprise Safety Command Center
+
 </h1>
 
-<p class="text-gray-400 mt-4 text-xl">
+<p
+id="mainSubtitle"
+class="text-gray-400 mt-4 text-xl">
+
 AI-based Industrial Worker Protection Platform
+
 </p>
 
 </div>
@@ -242,7 +279,7 @@ LIVE
 
 <div class="card">
 
-<p class="text-gray-400">
+<p id="workersText" class="text-gray-400">
 Workers Online
 </p>
 
@@ -255,7 +292,7 @@ class="text-5xl font-bold mt-5 text-cyan-400">
 
 <div class="card">
 
-<p class="text-gray-400">
+<p id="alertsText" class="text-gray-400">
 Health Alerts
 </p>
 
@@ -268,7 +305,7 @@ class="text-5xl font-bold mt-5 risk-high">
 
 <div class="card">
 
-<p class="text-gray-400">
+<p id="helmetText" class="text-gray-400">
 Helmet Compliance
 </p>
 
@@ -281,7 +318,7 @@ class="text-5xl font-bold mt-5 risk-safe">
 
 <div class="card">
 
-<p class="text-gray-400">
+<p id="riskText" class="text-gray-400">
 AI Risk Index
 </p>
 
@@ -300,7 +337,7 @@ class="text-5xl font-bold mt-5 risk-medium">
 
 <div class="flex justify-between">
 
-<h2 class="text-2xl font-bold">
+<h2 id="monitorTitle" class="text-2xl font-bold">
 Real-time Monitoring
 </h2>
 
@@ -371,7 +408,7 @@ Real-time Monitoring
 
 <div class="flex justify-between items-center">
 
-<h2 class="text-2xl font-bold">
+<h2 id="predictTitle" class="text-2xl font-bold">
 AI Risk Prediction
 </h2>
 
@@ -389,7 +426,8 @@ HIGH RISK
 Tomorrow Warning
 </h3>
 
-<p class="mt-4 text-gray-300 leading-8">
+<p id="predictText"
+class="mt-4 text-gray-300 leading-8">
 
 High temperature and worker fatigue may increase accident probability by 72%.
 
@@ -536,6 +574,77 @@ System Logs
 </div>
 
 <script>
+
+const translations = {
+
+en:{
+title:"Enterprise Safety Command Center",
+subtitle:"AI-based Industrial Worker Protection Platform",
+workers:"Workers Online",
+alerts:"Health Alerts",
+helmet:"Helmet Compliance",
+risk:"AI Risk Index",
+monitor:"Real-time Monitoring",
+predict:"AI Risk Prediction",
+predictText:"High temperature and worker fatigue may increase accident probability by 72%. Recommend reducing high-altitude operations after 2 PM."
+},
+
+zh:{
+title:"企业级安全指挥中心",
+subtitle:"基于AI的工业工人安全平台",
+workers:"在线工人数",
+alerts:"健康警报",
+helmet:"安全帽佩戴率",
+risk:"AI风险指数",
+monitor:"实时监控",
+predict:"AI风险预测",
+predictText:"高温与工人疲劳可能使事故概率提升至72%，建议下午2点后减少高空作业。"
+},
+
+ko:{
+title:"기업 안전 통합 관제 센터",
+subtitle:"AI 기반 산업 근로자 보호 플랫폼",
+workers:"현재 작업자",
+alerts:"건강 경고",
+helmet:"안전모 착용률",
+risk:"AI 위험 지수",
+monitor:"실시간 모니터링",
+predict:"AI 위험 예측",
+predictText:"고온과 작업자 피로로 인해 사고 확률이 72%까지 증가할 수 있습니다. 오후 2시 이후 고소 작업 축소를 권장합니다."
+}
+
+}
+
+function setLang(lang){
+
+document.getElementById("mainTitle").innerText =
+translations[lang].title
+
+document.getElementById("mainSubtitle").innerText =
+translations[lang].subtitle
+
+document.getElementById("workersText").innerText =
+translations[lang].workers
+
+document.getElementById("alertsText").innerText =
+translations[lang].alerts
+
+document.getElementById("helmetText").innerText =
+translations[lang].helmet
+
+document.getElementById("riskText").innerText =
+translations[lang].risk
+
+document.getElementById("monitorTitle").innerText =
+translations[lang].monitor
+
+document.getElementById("predictTitle").innerText =
+translations[lang].predict
+
+document.getElementById("predictText").innerText =
+translations[lang].predictText
+
+}
 
 function randomUpdate(){
 
