@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SafeSite AI</title>
+<title>SafeSite AI Enterprise</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -24,7 +24,7 @@ overflow:hidden;
 position:fixed;
 left:0;
 top:0;
-width:260px;
+width:270px;
 height:100vh;
 background:#0f172a;
 padding:25px;
@@ -51,11 +51,11 @@ font-size:18px;
 
 .menu-item:hover{
 background:#06b6d4;
-transform:translateX(6px);
+transform:translateX(5px);
 }
 
 .main{
-margin-left:280px;
+margin-left:290px;
 padding:30px;
 height:100vh;
 overflow:auto;
@@ -70,15 +70,15 @@ display:block;
 }
 
 .card{
-background:#1e293b;
-padding:25px;
+background:#111827;
+padding:24px;
 border-radius:24px;
-box-shadow:0 0 15px rgba(0,0,0,0.3);
+box-shadow:0 0 20px rgba(0,0,0,0.3);
 }
 
-.alert-critical{
-background:rgba(239,68,68,0.15);
+.alert{
 border:2px solid red;
+background:rgba(239,68,68,0.12);
 animation:blink 1s infinite;
 }
 
@@ -89,13 +89,13 @@ animation:blink 1s infinite;
 }
 
 .lang-buttons button{
-padding:10px 16px;
+padding:10px 15px;
 border:none;
 border-radius:12px;
 background:#334155;
 color:white;
 cursor:pointer;
-margin-left:10px;
+margin-left:8px;
 }
 
 .notification{
@@ -103,8 +103,8 @@ position:fixed;
 top:20px;
 right:20px;
 background:#ef4444;
-padding:20px;
-border-radius:20px;
+padding:18px;
+border-radius:18px;
 z-index:999;
 animation:slide 0.5s ease;
 }
@@ -118,19 +118,23 @@ transform:translateX(0);
 }
 }
 
-.status-safe{
-color:#4ade80;
-font-weight:bold;
+.weather-box{
+background:linear-gradient(135deg,#0ea5e9,#2563eb);
+padding:25px;
+border-radius:24px;
 }
 
-.status-danger{
-color:#f87171;
+.score-circle{
+width:150px;
+height:150px;
+border-radius:50%;
+border:10px solid #22d3ee;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
 font-weight:bold;
-}
-
-.status-offline{
-color:#94a3b8;
-font-weight:bold;
+margin:auto;
 }
 
 @media(max-width:900px){
@@ -153,11 +157,6 @@ padding:20px;
 min-width:180px;
 }
 
-.notification{
-width:90%;
-right:5%;
-}
-
 }
 
 </style>
@@ -169,19 +168,17 @@ right:5%;
 <div id="notification"
 class="notification hidden">
 
-<h2 data-key="alertTitle">
+<h2 data-key="notifyTitle">
 🚨 AI ALERT
 </h2>
 
-<p id="alertText"
-class="mt-3"
-data-key="alertText">
-
+<p data-key="notifyText">
 Worker inactive for 5 minutes
-
 </p>
 
 </div>
+
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -201,17 +198,37 @@ SafeSite AI
 📡 <span data-key="monitor">Monitoring</span>
 </div>
 
-<div class="menu-item" onclick="showPage('camera')">
-🎥 <span data-key="camera">AI Camera</span>
+<div class="menu-item" onclick="showPage('cctv')">
+🎥 <span data-key="cctv">CCTV Wall</span>
 </div>
 
-<div class="menu-item" onclick="showPage('report')">
-📄 <span data-key="report">AI Report</span>
+<div class="menu-item" onclick="showPage('riskmap')">
+🗺 <span data-key="riskmap">Risk Map</span>
+</div>
+
+<div class="menu-item" onclick="showPage('training')">
+📚 <span data-key="training">Training</span>
+</div>
+
+<div class="menu-item" onclick="showPage('emergency')">
+🚨 <span data-key="emergency">Emergency</span>
+</div>
+
+<div class="menu-item" onclick="showPage('reports')">
+📄 <span data-key="reports">Reports</span>
+</div>
+
+<div class="menu-item" onclick="showPage('settings')">
+⚙ <span data-key="settings">Settings</span>
 </div>
 
 </div>
+
+<!-- MAIN -->
 
 <div class="main">
+
+<!-- TOP -->
 
 <div class="flex justify-between items-center mb-8">
 
@@ -227,7 +244,7 @@ Enterprise Safety Control Center
 <p class="text-gray-400 mt-3"
 data-key="subtitle">
 
-AI Real-time Industrial Worker Monitoring Platform
+AI Real-time Industrial Safety Platform
 
 </p>
 
@@ -312,7 +329,7 @@ High Risk Workers
 
 </div>
 
-<div class="card alert-critical">
+<div class="card alert">
 
 <p data-key="alerts">
 Critical Alerts
@@ -327,129 +344,124 @@ class="text-5xl text-red-500 mt-4">
 
 </div>
 
-</div>
+<!-- SECOND ROW -->
 
-<!-- WORKERS -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
-<div id="workers" class="page">
+<!-- WEATHER -->
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="workers">
+<div class="weather-box">
 
-Workers
+<h2 class="text-3xl font-bold"
+data-key="weather">
 
-</h1>
+🌦 AI Weather Warning
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<div class="card">
-
-<h2 class="text-3xl">
-Kim Minsoo
 </h2>
 
-<p class="mt-4" data-key="welder">
-Welder
-</p>
-
-<p data-key="heart">
-❤️ Heart Rate: 78 BPM
-</p>
+<div class="mt-6 space-y-3">
 
 <p data-key="temp">
-🌡 Temperature: 36.5°C
+🌡 Temperature: 39°C
 </p>
 
-<p data-key="helmet">
-🪖 Helmet: Connected
+<p data-key="wind">
+💨 Strong Wind Detected
 </p>
 
-<p data-key="battery">
-🔋 Battery: 82%
+<p data-key="storm">
+⛈ Heavy Rain Warning
 </p>
 
-<p data-key="location1">
-📍 Sector A-12
-</p>
+<p class="text-red-200 font-bold"
+data-key="stopwork">
 
-<p data-key="movement1">
-🕒 Last Movement: 14 sec ago
-</p>
-
-<p data-key="checkin">
-🟢 Check In: 08:01
-</p>
-
-<p class="status-safe mt-3"
-data-key="safe">
-
-SAFE
+⚠ High-altitude Work Suspended
 
 </p>
 
 </div>
 
-<div class="card alert-critical">
+</div>
 
-<h2 class="text-3xl">
-Lee Jisung
+<!-- AI SCORE -->
+
+<div class="card">
+
+<h2 class="text-3xl text-cyan-400"
+data-key="score">
+
+AI Safety Score
+
 </h2>
 
-<p class="mt-4" data-key="high">
-🏗 High-altitude Worker
-</p>
+<div class="score-circle mt-8">
+92
+</div>
 
-<p data-key="heart2">
-❤️ Heart Rate: 128 BPM
-</p>
+<p class="text-center mt-6 text-gray-400"
+data-key="scoreDesc">
 
-<p data-key="temp2">
-🌡 Temperature: 39.2°C
-</p>
-
-<p data-key="location2">
-📍 Tower B-12
-</p>
-
-<p data-key="movement2">
-🕒 Last Movement: 2 min ago
-</p>
-
-<p class="status-danger mt-3"
-data-key="danger">
-
-HIGH RISK
+Excellent Site Safety Status
 
 </p>
+
+</div>
+
+</div>
+
+<!-- AI RISK -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+<div class="card alert">
+
+<h2 class="text-2xl text-red-400"
+data-key="riskPrediction">
+
+⚠ AI Risk Prediction
+
+</h2>
+
+<div class="mt-5 space-y-3">
+
+<p data-key="risk1">
+Heat Stroke Risk Increasing
+</p>
+
+<p data-key="risk2">
+Tower Crane Wind Danger
+</p>
+
+<p data-key="risk3">
+Fatigue Risk Detected
+</p>
+
+</div>
 
 </div>
 
 <div class="card">
 
-<h2 class="text-3xl">
-Park Jinwoo
+<h2 class="text-2xl text-cyan-400"
+data-key="tracking">
+
+📍 Live Worker Tracking
+
 </h2>
 
-<p class="mt-4"
-data-key="electrician">
+<div class="mt-5 space-y-3">
 
-⚡ Electrician
-
+<p>
+Kim Minsoo — A-12
 </p>
 
-<p data-key="location3">
-📍 Basement B-2
+<p>
+Lee Jisung — Tower B
 </p>
 
-<p data-key="offlineMove">
-🕒 Last Movement: Offline
-</p>
-
-<p class="status-offline mt-3"
-data-key="offlineStatus">
-
-OFFLINE
-
+<p>
+Park Jinwoo — Basement B2
 </p>
 
 </div>
@@ -458,157 +470,40 @@ OFFLINE
 
 </div>
 
-<!-- MONITOR -->
+</div>
+
+<!-- EMPTY PAGES -->
+
+<div id="workers" class="page">
+<h1 class="text-5xl font-bold">Workers</h1>
+</div>
 
 <div id="monitor" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="monitor">
-
-Monitoring
-
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<div class="card">
-
-<h2 data-key="gas">
-☣ Gas Detection
-</h2>
-
-<p class="text-5xl text-cyan-400 mt-6">
-23%
-</p>
-
+<h1 class="text-5xl font-bold">Monitoring</h1>
 </div>
 
-<div class="card alert-critical">
-
-<h2 data-key="gasAlert">
-🚨 CO GAS ALERT
-</h2>
-
-<p class="text-5xl text-red-400 mt-6">
-87%
-</p>
-
+<div id="cctv" class="page">
+<h1 class="text-5xl font-bold">CCTV Wall</h1>
 </div>
 
-<div class="card">
-
-<h2 data-key="temperature">
-🌡 Temperature
-</h2>
-
-<p class="text-5xl text-yellow-400 mt-6">
-37°C
-</p>
-
+<div id="riskmap" class="page">
+<h1 class="text-5xl font-bold">Risk Map</h1>
 </div>
 
+<div id="training" class="page">
+<h1 class="text-5xl font-bold">Training</h1>
 </div>
 
+<div id="emergency" class="page">
+<h1 class="text-5xl font-bold">Emergency</h1>
 </div>
 
-<!-- CAMERA -->
-
-<div id="camera" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="camera">
-
-AI Camera
-
-</h1>
-
-<div class="card alert-critical">
-
-<h2 class="text-red-400 text-3xl"
-data-key="fall">
-
-🚨 FALL DETECTED
-
-</h2>
-
-<p class="mt-5"
-data-key="collapse">
-
-Worker Collapse Detected
-
-</p>
-
-<p class="mt-3"
-data-key="ambulance">
-
-Ambulance ETA: 4 min
-
-</p>
-
-<button
-onclick="voiceAlert()"
-class="mt-6 px-6 py-3 bg-red-500 rounded-xl"
-data-key="playAlert">
-
-🔊 PLAY ALERT
-
-</button>
-
+<div id="reports" class="page">
+<h1 class="text-5xl font-bold">Reports</h1>
 </div>
 
-</div>
-
-<!-- REPORT -->
-
-<div id="report" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="report">
-
-AI Report
-
-</h1>
-
-<div class="card">
-
-<h2 class="text-cyan-400 text-3xl"
-data-key="daily">
-
-📄 Daily AI Analysis
-
-</h2>
-
-<div class="mt-6 space-y-4">
-
-<p data-key="report1">
-248 workers safely completed tasks
-</p>
-
-<p data-key="report2">
-12 high-risk alerts detected
-</p>
-
-<p data-key="report3">
-95% helmet compliance rate
-</p>
-
-<p data-key="report4">
-AI predicts increased heat risk tomorrow
-</p>
-
-</div>
-
-<button
-onclick="downloadReport()"
-class="mt-8 px-6 py-3 bg-cyan-500 rounded-xl"
-data-key="download">
-
-DOWNLOAD REPORT
-
-</button>
-
-</div>
-
+<div id="settings" class="page">
+<h1 class="text-5xl font-bold">Settings</h1>
 </div>
 
 </div>
@@ -624,43 +519,6 @@ p.classList.remove("active")
 
 document.getElementById(page)
 .classList.add("active")
-
-}
-
-function downloadReport(){
-
-alert("📄 Report Downloaded!")
-
-}
-
-function voiceAlert(){
-
-let lang =
-localStorage.getItem("language") || "en"
-
-let text=""
-
-if(lang==="en"){
-text="Emergency. Worker collapse detected."
-}
-
-if(lang==="zh"){
-text="紧急情况，检测到工人倒地。"
-}
-
-if(lang==="kr"){
-text="긴급 상황. 작업자 쓰러짐 감지."
-}
-
-const speech =
-new SpeechSynthesisUtterance(text)
-
-speech.lang =
-lang==="zh" ? "zh-CN" :
-lang==="kr" ? "ko-KR" :
-"en-US"
-
-speechSynthesis.speak(speech)
 
 }
 
@@ -693,147 +551,99 @@ en:{
 dashboard:"Dashboard",
 workers:"Workers",
 monitor:"Monitoring",
-camera:"AI Camera",
-report:"AI Report",
+cctv:"CCTV Wall",
+riskmap:"Risk Map",
+training:"Training",
+emergency:"Emergency",
+reports:"Reports",
+settings:"Settings",
 title:"Enterprise Safety Control Center",
-subtitle:"AI Real-time Industrial Worker Monitoring Platform",
+subtitle:"AI Real-time Industrial Safety Platform",
 admin:"ADMIN ONLINE",
 online:"Workers Online",
 offline:"Offline Workers",
 risk:"High Risk Workers",
 alerts:"Critical Alerts",
-welder:"Welder",
-heart:"❤️ Heart Rate: 78 BPM",
-temp:"🌡 Temperature: 36.5°C",
-helmet:"🪖 Helmet: Connected",
-battery:"🔋 Battery: 82%",
-location1:"📍 Sector A-12",
-movement1:"🕒 Last Movement: 14 sec ago",
-checkin:"🟢 Check In: 08:01",
-safe:"SAFE",
-high:"🏗 High-altitude Worker",
-heart2:"❤️ Heart Rate: 128 BPM",
-temp2:"🌡 Temperature: 39.2°C",
-location2:"📍 Tower B-12",
-movement2:"🕒 Last Movement: 2 min ago",
-danger:"HIGH RISK",
-electrician:"⚡ Electrician",
-location3:"📍 Basement B-2",
-offlineMove:"🕒 Last Movement: Offline",
-offlineStatus:"OFFLINE",
-gas:"☣ Gas Detection",
-gasAlert:"🚨 CO GAS ALERT",
-temperature:"🌡 Temperature",
-fall:"🚨 FALL DETECTED",
-collapse:"Worker Collapse Detected",
-ambulance:"Ambulance ETA: 4 min",
-playAlert:"🔊 PLAY ALERT",
-daily:"📄 Daily AI Analysis",
-report1:"248 workers safely completed tasks",
-report2:"12 high-risk alerts detected",
-report3:"95% helmet compliance rate",
-report4:"AI predicts increased heat risk tomorrow",
-download:"DOWNLOAD REPORT",
-alertTitle:"🚨 AI ALERT",
-alertText:"Worker inactive for 5 minutes"
+weather:"🌦 AI Weather Warning",
+temp:"🌡 Temperature: 39°C",
+wind:"💨 Strong Wind Detected",
+storm:"⛈ Heavy Rain Warning",
+stopwork:"⚠ High-altitude Work Suspended",
+score:"AI Safety Score",
+scoreDesc:"Excellent Site Safety Status",
+riskPrediction:"⚠ AI Risk Prediction",
+risk1:"Heat Stroke Risk Increasing",
+risk2:"Tower Crane Wind Danger",
+risk3:"Fatigue Risk Detected",
+tracking:"📍 Live Worker Tracking",
+notifyTitle:"🚨 AI ALERT",
+notifyText:"Worker inactive for 5 minutes"
 },
 
 zh:{
 dashboard:"控制台",
 workers:"工人管理",
 monitor:"实时监控",
-camera:"AI摄像头",
-report:"AI日报",
+cctv:"监控墙",
+riskmap:"风险地图",
+training:"安全培训",
+emergency:"应急系统",
+reports:"数据报表",
+settings:"系统设置",
 title:"企业级安全总控中心",
-subtitle:"AI工业工人实时监测平台",
+subtitle:"AI工业安全实时平台",
 admin:"管理员在线",
 online:"在线工人",
 offline:"离线工人",
 risk:"高风险工人",
 alerts:"严重警报",
-welder:"焊工",
-heart:"❤️ 心率：78 BPM",
-temp:"🌡 体温：36.5°C",
-helmet:"🪖 安全帽：已连接",
-battery:"🔋 电量：82%",
-location1:"📍 A-12区域",
-movement1:"🕒 最后移动：14秒前",
-checkin:"🟢 上班时间：08:01",
-safe:"安全",
-high:"🏗 高空作业工人",
-heart2:"❤️ 心率：128 BPM",
-temp2:"🌡 体温：39.2°C",
-location2:"📍 B-12塔吊",
-movement2:"🕒 最后移动：2分钟前",
-danger:"高风险",
-electrician:"⚡ 电工",
-location3:"📍 地下B-2",
-offlineMove:"🕒 最后移动：离线",
-offlineStatus:"离线",
-gas:"☣ 气体检测",
-gasAlert:"🚨 一氧化碳警报",
-temperature:"🌡 温度监测",
-fall:"🚨 检测到跌倒",
-collapse:"检测到工人倒地",
-ambulance:"救护车预计4分钟到达",
-playAlert:"🔊 播放警报",
-daily:"📄 AI每日分析",
-report1:"248名工人安全完成作业",
-report2:"检测到12次高风险警报",
-report3:"安全帽佩戴率95%",
-report4:"AI预测明日高温风险增加",
-download:"下载报告",
-alertTitle:"🚨 AI警报",
-alertText:"工人5分钟未移动"
+weather:"🌦 AI天气预警",
+temp:"🌡 温度：39°C",
+wind:"💨 检测到强风",
+storm:"⛈ 暴雨预警",
+stopwork:"⚠ 高空作业暂停",
+score:"AI安全评分",
+scoreDesc:"工地安全状态优秀",
+riskPrediction:"⚠ AI风险预测",
+risk1:"中暑风险上升",
+risk2:"塔吊风力危险",
+risk3:"检测到疲劳风险",
+tracking:"📍 工人实时定位",
+notifyTitle:"🚨 AI警报",
+notifyText:"工人5分钟未移动"
 },
 
 kr:{
 dashboard:"대시보드",
 workers:"작업자 관리",
 monitor:"실시간 모니터링",
-camera:"AI 카메라",
-report:"AI 리포트",
+cctv:"CCTV 관제",
+riskmap:"위험 지도",
+training:"안전 교육",
+emergency:"비상 시스템",
+reports:"리포트",
+settings:"설정",
 title:"기업 안전 통합 관제 센터",
-subtitle:"AI 산업 근로자 실시간 모니터링 플랫폼",
+subtitle:"AI 산업 안전 실시간 플랫폼",
 admin:"관리자 온라인",
 online:"온라인 작업자",
 offline:"오프라인 작업자",
 risk:"고위험 작업자",
 alerts:"심각 경고",
-welder:"용접공",
-heart:"❤️ 심박수: 78 BPM",
-temp:"🌡 체온: 36.5°C",
-helmet:"🪖 안전모 연결됨",
-battery:"🔋 배터리: 82%",
-location1:"📍 A-12 구역",
-movement1:"🕒 마지막 움직임: 14초 전",
-checkin:"🟢 출근 시간: 08:01",
-safe:"안전",
-high:"🏗 고소 작업자",
-heart2:"❤️ 심박수: 128 BPM",
-temp2:"🌡 체온: 39.2°C",
-location2:"📍 B-12 타워",
-movement2:"🕒 마지막 움직임: 2분 전",
-danger:"고위험",
-electrician:"⚡ 전기 기사",
-location3:"📍 지하 B-2",
-offlineMove:"🕒 마지막 움직임: 오프라인",
-offlineStatus:"오프라인",
-gas:"☣ 가스 감지",
-gasAlert:"🚨 일산화탄소 경고",
-temperature:"🌡 온도 모니터링",
-fall:"🚨 낙상 감지",
-collapse:"작업자 쓰러짐 감지",
-ambulance:"구급차 도착 예정: 4분",
-playAlert:"🔊 경고 재생",
-daily:"📄 AI 일일 분석",
-report1:"248명의 작업자가 안전하게 작업 완료",
-report2:"12건의 고위험 경고 감지",
-report3:"안전모 착용률 95%",
-report4:"AI가 내일 폭염 위험 증가 예측",
-download:"리포트 다운로드",
-alertTitle:"🚨 AI 경고",
-alertText:"작업자 5분간 움직임 없음"
+weather:"🌦 AI 날씨 경고",
+temp:"🌡 온도: 39°C",
+wind:"💨 강풍 감지",
+storm:"⛈ 폭우 경고",
+stopwork:"⚠ 고소 작업 중지",
+score:"AI 안전 점수",
+scoreDesc:"현장 안전 상태 우수",
+riskPrediction:"⚠ AI 위험 예측",
+risk1:"열사병 위험 증가",
+risk2:"타워크레인 강풍 위험",
+risk3:"피로 위험 감지",
+tracking:"📍 작업자 실시간 위치",
+notifyTitle:"🚨 AI 경고",
+notifyText:"작업자 5분간 움직임 없음"
 }
 
 }
@@ -847,7 +657,8 @@ const t=translations[lang]
 document.querySelectorAll("[data-key]")
 .forEach(el=>{
 
-const key=el.getAttribute("data-key")
+const key=
+el.getAttribute("data-key")
 
 if(t[key]){
 el.innerText=t[key]
