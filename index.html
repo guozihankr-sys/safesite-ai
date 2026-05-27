@@ -3,14 +3,165 @@
 
 <head>
 
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SafeSite AI</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050816;
+color:white;
+overflow:hidden;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:rgba(10,15,30,0.95);
+padding:30px 20px;
+border-right:1px solid rgba(255,255,255,0.08);
+overflow-y:auto;
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:40px;
+}
+
+.menu-item{
+padding:18px;
+margin-bottom:14px;
+border-radius:18px;
+cursor:pointer;
+background:rgba(255,255,255,0.03);
+transition:0.3s;
+font-size:18px;
+}
+
+.menu-item:hover{
+background:#0891b2;
+transform:translateX(6px);
+}
+
+.main{
+margin-left:280px;
+padding:30px;
+height:100vh;
+overflow-y:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:28px;
+padding:24px;
+backdrop-filter:blur(10px);
+}
+
+.lang-btn{
+padding:10px 16px;
+background:#1e293b;
+border:none;
+color:white;
+border-radius:12px;
+cursor:pointer;
+}
+
+.lang-btn:hover{
+background:#06b6d4;
+}
+
+.live-dot{
+width:12px;
+height:12px;
+background:#22c55e;
+border-radius:50%;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1;}
+50%{opacity:0.3;}
+100%{opacity:1;}
+}
+
+.video-box{
+position:relative;
+overflow:hidden;
+border-radius:24px;
+}
+
+video{
+width:100%;
+border-radius:24px;
+}
+
+.scan-line{
+position:absolute;
+width:100%;
+height:4px;
+background:#22d3ee;
+animation:scan 3s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0;}
+100%{top:100%;}
+}
+
+.bg-grid{
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+.page{
+display:none;
+}
+
+.active-page{
+display:block;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+display:flex;
+gap:10px;
+overflow:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.menu-item{
+min-width:180px;
+}
+
+}
+
+</style>
 
 </head>
 
@@ -24,19 +175,19 @@
 SafeSite AI
 </div>
 
-<div class="menu-item" onclick="location.href='index.html'">
+<div class="menu-item" onclick="showPage('dashboard')">
 🏠 <span id="navDashboard">Dashboard</span>
 </div>
 
-<div class="menu-item" onclick="location.href='workers.html'">
+<div class="menu-item" onclick="showPage('workers')">
 👷 <span id="navWorkers">Workers</span>
 </div>
 
-<div class="menu-item" onclick="location.href='monitor.html'">
+<div class="menu-item" onclick="showPage('monitor')">
 📡 <span id="navMonitor">Live Monitor</span>
 </div>
 
-<div class="menu-item" onclick="location.href='ai-camera.html'">
+<div class="menu-item" onclick="showPage('camera')">
 🎥 <span id="navCamera">AI Camera</span>
 </div>
 
@@ -46,40 +197,41 @@ SafeSite AI
 
 <div class="flex justify-end gap-3 mb-8">
 
-<button onclick="setLang('en')" class="lang-btn">
+<button class="lang-btn" onclick="setLang('en')">
 EN
 </button>
 
-<button onclick="setLang('zh')" class="lang-btn">
+<button class="lang-btn" onclick="setLang('zh')">
 中文
 </button>
 
-<button onclick="setLang('ko')" class="lang-btn">
+<button class="lang-btn" onclick="setLang('ko')">
 한국어
 </button>
 
 </div>
 
-<h1 id="mainTitle" class="text-5xl font-bold">
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="page active-page">
+
+<h1 id="title" class="text-5xl font-bold">
 Enterprise Safety Command Center
 </h1>
 
-<p id="mainSubtitle"
-class="text-gray-400 mt-4 text-xl">
-
+<p id="subtitle" class="text-gray-400 mt-4 text-xl">
 AI-based Industrial Worker Protection Platform
-
 </p>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
 
 <div class="card">
 
-<p class="text-gray-400">
+<p id="onlineText">
 Workers Online
 </p>
 
-<h2 class="text-5xl font-bold mt-4 text-cyan-400">
+<h2 class="text-5xl font-bold text-cyan-400 mt-4">
 248
 </h2>
 
@@ -87,11 +239,11 @@ Workers Online
 
 <div class="card">
 
-<p class="text-gray-400">
-Health Alerts
+<p id="riskText">
+High Risk Workers
 </p>
 
-<h2 class="text-5xl font-bold mt-4 text-red-400">
+<h2 class="text-5xl font-bold text-red-400 mt-4">
 12
 </h2>
 
@@ -99,12 +251,12 @@ Health Alerts
 
 <div class="card">
 
-<p class="text-gray-400">
-AI Risk Index
+<p id="trainingText">
+Training Completed
 </p>
 
-<h2 class="text-5xl font-bold mt-4 text-yellow-400">
-72
+<h2 class="text-5xl font-bold text-green-400 mt-4">
+94%
 </h2>
 
 </div>
@@ -113,7 +265,334 @@ AI Risk Index
 
 </div>
 
-<script src="app.js"></script>
+<!-- WORKERS -->
+
+<div id="workers" class="page">
+
+<h1 id="workerTitle" class="text-5xl font-bold">
+Workers Management
+</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+<div class="card">
+
+<h2 class="text-3xl font-bold">
+Kim Minsoo
+</h2>
+
+<p id="welderText" class="text-gray-400 mt-4">
+Welder
+</p>
+
+<div class="mt-8 space-y-4">
+
+<p id="heart1">
+❤️ Heart Rate: 78 BPM
+</p>
+
+<p id="temp1">
+🌡 Temperature: 36.5°C
+</p>
+
+<p id="loc1">
+📍 Location: Sector A-12
+</p>
+
+<p id="helmet1">
+🪖 Helmet: Detected
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-3xl font-bold">
+Lee Jisung
+</h2>
+
+<p id="highText" class="text-gray-400 mt-4">
+High-altitude Worker
+</p>
+
+<div class="mt-8 space-y-4">
+
+<p id="heart2">
+❤️ Heart Rate: 108 BPM
+</p>
+
+<p id="temp2">
+🌡 Temperature: 37.9°C
+</p>
+
+<p id="loc2">
+📍 Location: Tower B-04
+</p>
+
+<p id="fatigue2">
+⚠ Fatigue Warning
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MONITOR -->
+
+<div id="monitor" class="page">
+
+<h1 id="monitorTitle" class="text-5xl font-bold">
+Live Monitoring
+</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+
+<div class="card">
+
+<div class="flex items-center gap-3">
+
+<div class="live-dot"></div>
+
+<h2 id="gasText" class="text-2xl">
+Gas Monitoring
+</h2>
+
+</div>
+
+<p class="mt-6 text-5xl text-cyan-400">
+23%
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="flex items-center gap-3">
+
+<div class="live-dot"></div>
+
+<h2 id="noiseText" class="text-2xl">
+Noise Level
+</h2>
+
+</div>
+
+<p class="mt-6 text-5xl text-yellow-400">
+76db
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="flex items-center gap-3">
+
+<div class="live-dot"></div>
+
+<h2 id="tempMonitorText" class="text-2xl">
+Temperature
+</h2>
+
+</div>
+
+<p class="mt-6 text-5xl text-red-400">
+37°C
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CAMERA -->
+
+<div id="camera" class="page">
+
+<h1 id="cameraTitle" class="text-5xl font-bold">
+AI Camera Monitoring
+</h1>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+
+<div class="lg:col-span-2">
+
+<div class="video-box">
+
+<video autoplay muted loop controls>
+
+<source src="5f8ba31764acc2ae44442a1aa64c5707.mp4" type="video/mp4">
+
+</video>
+
+<div class="scan-line"></div>
+
+</div>
+
+</div>
+
+<div class="space-y-6">
+
+<div class="card">
+
+<h2 id="helmetAlert" class="text-red-400 text-2xl font-bold">
+🚨 No Helmet Detected
+</h2>
+
+<p class="mt-4">
+Worker ID: KR-2031
+</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="smokeAlert" class="text-yellow-300 text-2xl font-bold">
+⚠ Smoking Detected
+</h2>
+
+<p class="mt-4">
+Worker ID: KR-8841
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function showPage(page){
+
+document.querySelectorAll('.page').forEach(p=>{
+p.classList.remove('active-page')
+})
+
+document.getElementById(page).classList.add('active-page')
+
+}
+
+const text = {
+
+en:{
+dashboard:"Dashboard",
+workers:"Workers",
+monitor:"Live Monitor",
+camera:"AI Camera",
+title:"Enterprise Safety Command Center",
+subtitle:"AI-based Industrial Worker Protection Platform",
+online:"Workers Online",
+risk:"High Risk Workers",
+training:"Training Completed",
+workerTitle:"Workers Management",
+welder:"Welder",
+high:"High-altitude Worker",
+monitorTitle:"Live Monitoring",
+gas:"Gas Monitoring",
+noise:"Noise Level",
+temp:"Temperature",
+cameraTitle:"AI Camera Monitoring",
+helmet:"🚨 No Helmet Detected",
+smoke:"⚠ Smoking Detected"
+},
+
+zh:{
+dashboard:"控制台",
+workers:"工人管理",
+monitor:"实时监控",
+camera:"AI摄像头",
+title:"企业级安全指挥中心",
+subtitle:"基于AI的工业工人安全平台",
+online:"在线工人",
+risk:"高风险工人",
+training:"培训完成率",
+workerTitle:"工人管理系统",
+welder:"焊工",
+high:"高空作业人员",
+monitorTitle:"实时监测",
+gas:"气体监测",
+noise:"噪音监测",
+temp:"温度监测",
+cameraTitle:"AI摄像头监控",
+helmet:"🚨 未佩戴安全帽",
+smoke:"⚠ 检测到吸烟"
+},
+
+ko:{
+dashboard:"대시보드",
+workers:"작업자 관리",
+monitor:"실시간 모니터링",
+camera:"AI 카메라",
+title:"기업 안전 통합 관제 센터",
+subtitle:"AI 기반 산업 근로자 보호 플랫폼",
+online:"온라인 작업자",
+risk:"고위험 작업자",
+training:"교육 완료율",
+workerTitle:"작업자 관리 시스템",
+welder:"용접공",
+high:"고소 작업자",
+monitorTitle:"실시간 모니터링",
+gas:"가스 모니터링",
+noise:"소음 모니터링",
+temp:"온도 모니터링",
+cameraTitle:"AI 카메라 모니터링",
+helmet:"🚨 안전모 미착용 감지",
+smoke:"⚠ 흡연 감지"
+}
+
+}
+
+function setLang(lang){
+
+localStorage.setItem("lang",lang)
+
+document.getElementById("navDashboard").innerText=text[lang].dashboard
+document.getElementById("navWorkers").innerText=text[lang].workers
+document.getElementById("navMonitor").innerText=text[lang].monitor
+document.getElementById("navCamera").innerText=text[lang].camera
+
+document.getElementById("title").innerText=text[lang].title
+document.getElementById("subtitle").innerText=text[lang].subtitle
+
+document.getElementById("onlineText").innerText=text[lang].online
+document.getElementById("riskText").innerText=text[lang].risk
+document.getElementById("trainingText").innerText=text[lang].training
+
+document.getElementById("workerTitle").innerText=text[lang].workerTitle
+document.getElementById("welderText").innerText=text[lang].welder
+document.getElementById("highText").innerText=text[lang].high
+
+document.getElementById("monitorTitle").innerText=text[lang].monitorTitle
+document.getElementById("gasText").innerText=text[lang].gas
+document.getElementById("noiseText").innerText=text[lang].noise
+document.getElementById("tempMonitorText").innerText=text[lang].temp
+
+document.getElementById("cameraTitle").innerText=text[lang].cameraTitle
+document.getElementById("helmetAlert").innerText=text[lang].helmet
+document.getElementById("smokeAlert").innerText=text[lang].smoke
+
+}
+
+window.onload=function(){
+
+const saved=localStorage.getItem("lang") || "en"
+
+setLang(saved)
+
+}
+
+</script>
 
 </body>
 </html>
