@@ -6,50 +6,144 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>SafeSite AI</title>
+<title>SafeSite AI Enterprise</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
 body{
-  margin:0;
-  background:#050816;
-  color:white;
-  font-family:Arial,sans-serif;
-  overflow-x:hidden;
+margin:0;
+font-family:Arial,sans-serif;
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:rgba(10,15,30,0.95);
+border-right:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+padding:30px 20px;
+z-index:100;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:40px;
+}
+
+.menu-item{
+display:flex;
+align-items:center;
+gap:14px;
+padding:16px;
+margin-bottom:12px;
+border-radius:18px;
+cursor:pointer;
+transition:0.3s;
+background:rgba(255,255,255,0.03);
+}
+
+.menu-item:hover{
+background:#0ea5e9;
+transform:translateX(5px);
+}
+
+.main{
+margin-left:280px;
+padding:30px;
 }
 
 .card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(12px);
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:30px;
+padding:25px;
 }
 
 .glow{
-  box-shadow:0 0 25px rgba(34,211,238,0.4);
+box-shadow:0 0 25px rgba(34,211,238,0.35);
 }
 
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:rgba(10,10,20,0.9);
-  border-top:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
+.risk-high{
+color:#ef4444;
 }
 
-.status-safe{
-  color:#22c55e;
+.risk-medium{
+color:#facc15;
 }
 
-.status-warning{
-  color:#facc15;
+.risk-safe{
+color:#22c55e;
 }
 
-.status-danger{
-  color:#ef4444;
+.live-dot{
+width:12px;
+height:12px;
+background:#22c55e;
+border-radius:50%;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1;}
+50%{opacity:0.3;}
+100%{opacity:1;}
+}
+
+.bg-grid{
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+.mobile-nav{
+display:none;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.main{
+margin-left:0;
+padding-bottom:120px;
+}
+
+.mobile-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#081020;
+display:flex;
+justify-content:space-around;
+padding:16px 0;
+border-top:1px solid rgba(255,255,255,0.1);
+z-index:999;
+}
+
+.mobile-item{
+font-size:13px;
+text-align:center;
+}
+
 }
 
 </style>
@@ -58,374 +152,408 @@ body{
 
 <body>
 
-<header class="flex justify-between items-center p-6">
+<div class="bg-grid"></div>
 
-<h1 class="text-3xl font-bold text-cyan-400">
+<div class="sidebar">
+
+<div class="logo">
 SafeSite AI
-</h1>
+</div>
 
-<div class="flex gap-2">
+<div class="menu-item" onclick="location.href='index.html'">
+🏠 Dashboard
+</div>
 
-<button onclick="setLang('en')"
-class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
-EN
-</button>
+<div class="menu-item" onclick="location.href='workers.html'">
+👷 Workers
+</div>
 
-<button onclick="setLang('zh')"
-class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
-中文
-</button>
+<div class="menu-item" onclick="location.href='monitor.html'">
+📡 Live Monitor
+</div>
 
-<button onclick="setLang('ko')"
-class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
-한국어
-</button>
+<div class="menu-item" onclick="location.href='ai-camera.html'">
+🎥 AI Camera
+</div>
+
+<div class="menu-item" onclick="location.href='risks.html'">
+⚠ Risk Control
+</div>
+
+<div class="menu-item" onclick="location.href='training.html'">
+📚 Training
+</div>
+
+<div class="menu-item" onclick="location.href='emergency.html'">
+🚨 Emergency
+</div>
+
+<div class="menu-item" onclick="location.href='analytics.html'">
+📊 Analytics
+</div>
+
+<div class="menu-item" onclick="location.href='settings.html'">
+⚙ Settings
+</div>
 
 </div>
 
-</header>
-
-<section class="px-6">
+<div class="main">
 
 <div class="flex justify-between items-center flex-wrap gap-6">
 
 <div>
 
-<h1 id="title"
-class="text-5xl md:text-7xl font-bold leading-tight">
-
-Protect Every Worker with AI
-
+<h1 class="text-5xl font-bold">
+Enterprise Safety Command Center
 </h1>
 
-<p id="subtitle"
-class="mt-6 text-gray-400 text-xl">
-
-Real-time worker safety monitoring platform
-
+<p class="text-gray-400 mt-4 text-xl">
+AI-based Industrial Worker Protection Platform
 </p>
 
 </div>
 
-<div class="text-right">
+<div class="card glow">
+
+<div class="flex items-center gap-3">
+
+<div class="live-dot"></div>
+
+<div>
 
 <p class="text-gray-400">
-SYSTEM TIME
+SYSTEM STATUS
 </p>
 
-<h2 id="clock"
-class="text-2xl font-bold text-cyan-400">
-
-00:00:00
-
+<h2 class="text-2xl font-bold text-cyan-400">
+LIVE
 </h2>
 
 </div>
 
 </div>
 
-<a href="monitor.html">
+</div>
 
-<button
-id="launch"
-class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
+</div>
 
-Launch Dashboard
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-12">
 
+<div class="card">
+
+<p class="text-gray-400">
+Workers Online
+</p>
+
+<h2 id="workers"
+class="text-5xl font-bold mt-5 text-cyan-400">
+248
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+Health Alerts
+</p>
+
+<h2 id="alerts"
+class="text-5xl font-bold mt-5 risk-high">
+12
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+Helmet Compliance
+</p>
+
+<h2 id="helmet"
+class="text-5xl font-bold mt-5 risk-safe">
+97%
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+AI Risk Index
+</p>
+
+<h2 id="risk"
+class="text-5xl font-bold mt-5 risk-medium">
+72
+</h2>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+<div class="card">
+
+<div class="flex justify-between">
+
+<h2 class="text-2xl font-bold">
+Real-time Monitoring
+</h2>
+
+<span class="risk-safe">
+● Active
+</span>
+
+</div>
+
+<div class="mt-8 space-y-6">
+
+<div>
+
+<div class="flex justify-between">
+
+<p>Heart Rate Stability</p>
+<p>92%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-3 mt-2">
+
+<div class="bg-green-500 h-3 rounded-full w-[92%]"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="flex justify-between">
+
+<p>Fatigue Risk</p>
+<p>68%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-3 mt-2">
+
+<div class="bg-yellow-400 h-3 rounded-full w-[68%]"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="flex justify-between">
+
+<p>Gas Exposure</p>
+<p>24%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-3 mt-2">
+
+<div class="bg-cyan-400 h-3 rounded-full w-[24%]"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="flex justify-between items-center">
+
+<h2 class="text-2xl font-bold">
+AI Risk Prediction
+</h2>
+
+<span class="risk-high">
+HIGH RISK
+</span>
+
+</div>
+
+<div class="mt-8">
+
+<div class="p-5 rounded-2xl bg-red-500/10 border border-red-500/20">
+
+<h3 class="text-xl font-bold text-red-400">
+Tomorrow Warning
+</h3>
+
+<p class="mt-4 text-gray-300 leading-8">
+
+High temperature and worker fatigue may increase accident probability by 72%.
+
+Recommend reducing high-altitude operations after 2 PM.
+
+</p>
+
+</div>
+
+<div class="mt-6">
+
+<p class="text-gray-400">
+Predicted Accident Probability
+</p>
+
+<h2 class="text-6xl font-bold text-red-400 mt-3">
+72%
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+
+<div class="card">
+
+<h2 class="text-2xl font-bold">
+AI Detection
+</h2>
+
+<div class="mt-6 space-y-4">
+
+<div class="flex justify-between">
+<p>No Helmet</p>
+<p class="risk-high">14</p>
+</div>
+
+<div class="flex justify-between">
+<p>Smoking</p>
+<p class="risk-medium">6</p>
+</div>
+
+<div class="flex justify-between">
+<p>Danger Zone Intrusion</p>
+<p class="risk-high">4</p>
+</div>
+
+<div class="flex justify-between">
+<p>Phone Usage</p>
+<p class="risk-medium">8</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-2xl font-bold">
+Emergency Center
+</h2>
+
+<div class="mt-6 space-y-4">
+
+<button class="w-full bg-red-500 hover:bg-red-400 p-4 rounded-2xl text-lg font-bold">
+🚨 Emergency SOS
 </button>
 
-</a>
+<button class="w-full bg-cyan-500 hover:bg-cyan-400 p-4 rounded-2xl text-lg font-bold">
+🏥 Call Hospital
+</button>
 
-</section>
+<button class="w-full bg-yellow-500 hover:bg-yellow-400 p-4 rounded-2xl text-lg font-bold">
+📢 Notify Manager
+</button>
 
-<section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mt-20">
+</div>
 
-<div class="card rounded-3xl p-6">
+</div>
 
-<h2 id="workers" class="text-gray-400">
-Workers Online
+<div class="card">
+
+<h2 class="text-2xl font-bold">
+System Logs
 </h2>
 
-<p id="workerCount"
-class="text-5xl font-bold mt-4 text-cyan-400">
+<div class="mt-6 space-y-5 text-sm">
 
-248
-
+<p>
+✅ Worker Kim checked in
 </p>
 
-</div>
-
-<div class="card rounded-3xl p-6">
-
-<h2 id="alerts" class="text-gray-400">
-High Risk Alerts
-</h2>
-
-<p id="alertCount"
-class="text-5xl font-bold mt-4 text-red-400">
-
-12
-
+<p>
+⚠ Tower Crane tilt warning
 </p>
 
-</div>
-
-<div class="card rounded-3xl p-6">
-
-<h2 id="helmet" class="text-gray-400">
-Helmet Compliance
-</h2>
-
-<p id="helmetRate"
-class="text-5xl font-bold mt-4 text-green-400">
-
-97%
-
+<p>
+🚨 Helmet violation detected
 </p>
 
-</div>
-
-</section>
-
-<section class="px-6 mt-24 mb-40">
-
-<h2 id="monitoring"
-class="text-4xl font-bold mb-10">
-
-AI Safety Monitoring
-
-</h2>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card rounded-3xl p-6">
-
-<h3 id="heat"
-class="text-2xl font-semibold">
-
-Heat Risk
-
-</h3>
-
-<div class="mt-6 h-4 bg-gray-700 rounded-full">
-
-<div class="h-4 bg-red-500 rounded-full w-4/5"></div>
-
-</div>
-
-<p id="heatStatus"
-class="mt-4 text-red-400 text-xl font-bold">
-
-HIGH RISK
-
+<p>
+✅ Gas level normalized
 </p>
 
-</div>
-
-<div class="card rounded-3xl p-6">
-
-<h3 id="toxic"
-class="text-2xl font-semibold">
-
-Toxic Gas
-
-</h3>
-
-<div class="mt-6 h-4 bg-gray-700 rounded-full">
-
-<div class="h-4 bg-yellow-400 rounded-full w-2/4"></div>
-
-</div>
-
-<p id="gasStatus"
-class="mt-4 text-yellow-400 text-xl font-bold">
-
-WARNING
-
+<p>
+📡 AI Camera Online
 </p>
 
 </div>
 
 </div>
 
-</section>
-
-<nav class="bottom-nav flex justify-around py-4">
-
-<a href="index.html" class="text-center">
-🏠<br/>Home
-</a>
-
-<a href="monitor.html" class="text-center">
-📡<br/>Monitor
-</a>
-
-<div class="text-center">
-📊<br/>Analytics
 </div>
 
-<div class="text-center">
-🚨<br/>SOS
 </div>
 
-<div class="text-center">
-👤<br/>Profile
+<div class="mobile-nav">
+
+<div class="mobile-item">
+🏠<br>Home
 </div>
 
-</nav>
+<div class="mobile-item">
+📡<br>Monitor
+</div>
+
+<div class="mobile-item">
+⚠<br>Risk
+</div>
+
+<div class="mobile-item">
+🚨<br>SOS
+</div>
+
+<div class="mobile-item">
+⚙<br>Settings
+</div>
+
+</div>
 
 <script>
 
-const translations = {
-
-en:{
-title:"Protect Every Worker with AI",
-subtitle:"Real-time worker safety monitoring platform",
-workers:"Workers Online",
-alerts:"High Risk Alerts",
-helmet:"Helmet Compliance",
-monitoring:"AI Safety Monitoring",
-heat:"Heat Risk",
-toxic:"Toxic Gas",
-launch:"Launch Dashboard"
-},
-
-zh:{
-title:"用 AI 保护每一位工人",
-subtitle:"实时工人安全监测平台",
-workers:"在线工人数",
-alerts:"高风险警报",
-helmet:"安全帽佩戴率",
-monitoring:"AI安全监测",
-heat:"高温风险",
-toxic:"有毒气体",
-launch:"进入控制台"
-},
-
-ko:{
-title:"AI로 모든 근로자를 보호하세요",
-subtitle:"실시간 근로자 안전 모니터링 플랫폼",
-workers:"현재 작업자",
-alerts:"고위험 경고",
-helmet:"안전모 착용률",
-monitoring:"AI 안전 모니터링",
-heat:"고온 위험",
-toxic:"유독 가스",
-launch:"대시보드 실행"
-}
-
-}
-
-function setLang(lang){
-
-document.getElementById("title").innerText =
-translations[lang].title
-
-document.getElementById("subtitle").innerText =
-translations[lang].subtitle
+function randomUpdate(){
 
 document.getElementById("workers").innerText =
-translations[lang].workers
-
-document.getElementById("alerts").innerText =
-translations[lang].alerts
-
-document.getElementById("helmet").innerText =
-translations[lang].helmet
-
-document.getElementById("monitoring").innerText =
-translations[lang].monitoring
-
-document.getElementById("heat").innerText =
-translations[lang].heat
-
-document.getElementById("toxic").innerText =
-translations[lang].toxic
-
-document.getElementById("launch").innerText =
-translations[lang].launch
-
-}
-
-function updateClock(){
-
-const now = new Date()
-
-document.getElementById("clock").innerText =
-now.toLocaleTimeString()
-
-}
-
-setInterval(updateClock,1000)
-
-function randomData(){
-
-const workers =
 240 + Math.floor(Math.random()*20)
 
-const alerts =
-10 + Math.floor(Math.random()*10)
+document.getElementById("alerts").innerText =
+10 + Math.floor(Math.random()*8)
 
-const helmet =
-95 + Math.floor(Math.random()*5)
+document.getElementById("helmet").innerText =
+95 + Math.floor(Math.random()*5) + "%"
 
-document.getElementById("workerCount").innerText =
-workers
-
-document.getElementById("alertCount").innerText =
-alerts
-
-document.getElementById("helmetRate").innerText =
-helmet + "%"
+document.getElementById("risk").innerText =
+60 + Math.floor(Math.random()*30)
 
 }
 
-setInterval(randomData,3000)
-
-const statuses = [
-
-{
-text:"SAFE",
-class:"status-safe"
-},
-
-{
-text:"WARNING",
-class:"status-warning"
-},
-
-{
-text:"HIGH RISK",
-class:"status-danger"
-}
-
-]
-
-function updateStatus(){
-
-const heat =
-statuses[Math.floor(Math.random()*3)]
-
-const gas =
-statuses[Math.floor(Math.random()*3)]
-
-const heatEl =
-document.getElementById("heatStatus")
-
-const gasEl =
-document.getElementById("gasStatus")
-
-heatEl.innerText = heat.text
-heatEl.className =
-"mt-4 text-xl font-bold " + heat.class
-
-gasEl.innerText = gas.text
-gasEl.className =
-"mt-4 text-xl font-bold " + gas.class
-
-}
-
-setInterval(updateStatus,4000)
+setInterval(randomUpdate,3000)
 
 </script>
 
