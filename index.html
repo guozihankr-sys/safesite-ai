@@ -146,6 +146,16 @@ border:3px solid red;
 animation:blink 1s infinite;
 }
 
+.status-safe{
+color:#4ade80;
+font-weight:bold;
+}
+
+.status-danger{
+color:#f87171;
+font-weight:bold;
+}
+
 @media(max-width:900px){
 
 .sidebar{
@@ -198,6 +208,10 @@ SafeSite AI
 
 <div class="menu-item" onclick="showPage('emergency')">
 🚨 <span data-key="emergency">Emergency</span>
+</div>
+
+<div class="menu-item" onclick="showPage('report')">
+📄 <span data-key="reportMenu">AI Report</span>
 </div>
 
 </div>
@@ -328,8 +342,8 @@ Welder
 📍 <span data-key="location">Location</span>: Sector A-12
 </p>
 
-<p class="text-green-400">
-AI Status: SAFE
+<p class="status-safe">
+AI STATUS: SAFE
 </p>
 
 </div>
@@ -356,11 +370,11 @@ High-altitude Worker
 🌡 <span data-key="temp">Temperature</span>: 39.2°C
 </p>
 
-<p class="text-red-400">
+<p class="status-danger">
 ⚠ AI Risk Prediction: Heat Stroke Risk
 </p>
 
-<p class="text-red-500 font-bold">
+<p class="status-danger">
 🚨 DANGER LEVEL: CRITICAL
 </p>
 
@@ -440,7 +454,7 @@ Temperature
 
 </div>
 
-<!-- CAMERA -->
+<!-- AI CAMERA -->
 
 <div id="camera" class="page">
 
@@ -463,12 +477,7 @@ AI Camera
 <div class="scan-line"></div>
 
 <div class="detect-box"
-style="
-top:18%;
-left:28%;
-width:120px;
-height:180px;
-">
+style="top:18%;left:28%;width:120px;height:180px;">
 </div>
 
 </div>
@@ -495,6 +504,14 @@ Location: Tower B-12
 Ambulance ETA: 4 min
 </p>
 
+<button
+onclick="speakAlert('fall')"
+class="mt-5 px-5 py-3 bg-red-500 rounded-xl">
+
+🔊 PLAY ALERT
+
+</button>
+
 </div>
 
 <div class="card">
@@ -506,6 +523,14 @@ Ambulance ETA: 4 min
 <p class="mt-4">
 Worker ID: KR-8841
 </p>
+
+<button
+onclick="speakAlert('helmet')"
+class="mt-5 px-5 py-3 bg-yellow-500 rounded-xl">
+
+🔊 PLAY ALERT
+
+</button>
 
 </div>
 
@@ -581,6 +606,116 @@ Fire Department: 119
 
 </div>
 
+<!-- REPORT -->
+
+<div id="report" class="page">
+
+<h1 data-key="reportTitle"
+class="text-5xl font-bold">
+
+AI Safety Report
+
+</h1>
+
+<p class="text-gray-400 mt-4 text-xl"
+data-key="reportSub">
+
+Automatic daily safety analysis and reporting
+
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+<div class="card">
+
+<h2 class="text-cyan-400 text-3xl">
+📊 AI Daily Analysis
+</h2>
+
+<div class="mt-6 space-y-4 text-lg">
+
+<p>
+✅ <span data-key="report1">
+248 workers safely completed tasks
+</span>
+</p>
+
+<p>
+⚠ <span data-key="report2">
+12 high-risk alerts detected
+</span>
+</p>
+
+<p>
+🚨 <span data-key="report3">
+3 emergency rescue activations
+</span>
+</p>
+
+<p>
+🪖 <span data-key="report4">
+95% helmet compliance rate
+</span>
+</p>
+
+<p>
+🌡 <span data-key="report5">
+Heat stroke risk increased by 14%
+</span>
+</p>
+
+</div>
+
+<button
+onclick="downloadReport()"
+class="mt-8 px-6 py-3 bg-cyan-500 rounded-xl">
+
+📄 DOWNLOAD REPORT
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-red-400 text-3xl">
+🔊 AI Voice Alert
+</h2>
+
+<div class="mt-8 space-y-5">
+
+<button
+onclick="speakAlert('helmet')"
+class="w-full py-4 bg-red-500 rounded-xl">
+
+🚨 No Helmet Detected
+
+</button>
+
+<button
+onclick="speakAlert('fall')"
+class="w-full py-4 bg-yellow-500 rounded-xl">
+
+⚠ Worker Collapse Detected
+
+</button>
+
+<button
+onclick="speakAlert('gas')"
+class="w-full py-4 bg-orange-500 rounded-xl">
+
+☣ Dangerous Gas Detected
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
@@ -601,6 +736,77 @@ alert("🚑 Emergency Rescue Team Activated!")
 
 }
 
+function downloadReport(){
+
+alert("📄 AI Safety Report Downloaded!")
+
+}
+
+function speakAlert(type){
+
+let lang = localStorage.getItem("language") || "en"
+
+let text = ""
+
+if(lang==="en"){
+
+if(type==="helmet"){
+text="Warning. Worker without helmet detected."
+}
+
+if(type==="fall"){
+text="Emergency. Worker collapse detected."
+}
+
+if(type==="gas"){
+text="Dangerous gas detected. Evacuate immediately."
+}
+
+}
+
+if(lang==="zh"){
+
+if(type==="helmet"){
+text="警告，检测到工人未佩戴安全帽。"
+}
+
+if(type==="fall"){
+text="紧急情况，检测到工人倒地。"
+}
+
+if(type==="gas"){
+text="检测到危险气体，请立即撤离。"
+}
+
+}
+
+if(lang==="kr"){
+
+if(type==="helmet"){
+text="경고. 안전모 미착용 작업자 감지."
+}
+
+if(type==="fall"){
+text="긴급 상황. 작업자 쓰러짐 감지."
+}
+
+if(type==="gas"){
+text="위험 가스 감지. 즉시 대피하십시오."
+}
+
+}
+
+const speech = new SpeechSynthesisUtterance(text)
+
+speech.lang =
+lang==="zh" ? "zh-CN" :
+lang==="kr" ? "ko-KR" :
+"en-US"
+
+speechSynthesis.speak(speech)
+
+}
+
 const translations={
 
 en:{
@@ -609,6 +815,7 @@ workers:"Workers",
 monitor:"Monitoring",
 camera:"AI Camera",
 emergency:"Emergency",
+reportMenu:"AI Report",
 title:"Enterprise Safety Command Center",
 subtitle:"AI-based industrial worker protection platform",
 online:"Workers Online",
@@ -621,7 +828,14 @@ heart:"Heart Rate",
 temp:"Temperature",
 location:"Location",
 gas:"Gas Detection",
-temperature:"Temperature"
+temperature:"Temperature",
+reportTitle:"AI Safety Report",
+reportSub:"Automatic daily safety analysis and reporting",
+report1:"248 workers safely completed tasks",
+report2:"12 high-risk alerts detected",
+report3:"3 emergency rescue activations",
+report4:"95% helmet compliance rate",
+report5:"Heat stroke risk increased by 14%"
 },
 
 zh:{
@@ -630,6 +844,7 @@ workers:"工人管理",
 monitor:"实时监控",
 camera:"AI摄像头",
 emergency:"应急系统",
+reportMenu:"AI日报",
 title:"企业级安全指挥中心",
 subtitle:"基于AI的工业工人安全平台",
 online:"在线工人",
@@ -642,7 +857,14 @@ heart:"心率",
 temp:"体温",
 location:"位置",
 gas:"气体检测",
-temperature:"温度监测"
+temperature:"温度监测",
+reportTitle:"AI安全日报",
+reportSub:"自动生成每日安全分析报告",
+report1:"248名工人安全完成作业",
+report2:"检测到12次高风险警报",
+report3:"触发3次紧急救援",
+report4:"安全帽佩戴率95%",
+report5:"中暑风险上升14%"
 },
 
 kr:{
@@ -651,6 +873,7 @@ workers:"작업자 관리",
 monitor:"실시간 모니터링",
 camera:"AI 카메라",
 emergency:"비상 시스템",
+reportMenu:"AI 리포트",
 title:"기업 안전 통합 관제 센터",
 subtitle:"AI 기반 산업 근로자 보호 플랫폼",
 online:"온라인 작업자",
@@ -663,7 +886,14 @@ heart:"심박수",
 temp:"체온",
 location:"위치",
 gas:"가스 감지",
-temperature:"온도 모니터링"
+temperature:"온도 모니터링",
+reportTitle:"AI 안전 보고서",
+reportSub:"자동 일일 안전 분석 보고서",
+report1:"248명의 작업자가 안전하게 작업 완료",
+report2:"12건의 고위험 경고 감지",
+report3:"3건의 긴급 구조 활성화",
+report4:"안전모 착용률 95%",
+report5:"열사병 위험 14% 증가"
 }
 
 }
