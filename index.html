@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+  <title>SafeSite AI</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body{
+      margin:0;
+      background:#050816;
+      color:white;
+      font-family:Arial,sans-serif;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+    }
+
+    .glow{
+      box-shadow:0 0 25px rgba(34,211,238,0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="flex justify-between items-center p-6">
+
+  <h1 class="text-3xl font-bold text-cyan-400">
+    SafeSite AI
+  </h1>
+
+  <div class="flex gap-2">
+
+    <button onclick="setLang('en')"
+      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+      EN
+    </button>
+
+    <button onclick="setLang('zh')"
+      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+      中文
+    </button>
+
+    <button onclick="setLang('ko')"
+      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+      한국어
+    </button>
+
+  </div>
+
+</header>
+
+<section class="text-center px-6 mt-20">
+
+  <h1 id="title"
+    class="text-5xl md:text-7xl font-bold leading-tight">
+
+    Protect Every Worker with AI
+
+  </h1>
+
+  <p id="subtitle"
+    class="mt-6 text-gray-400 text-xl">
+
+    Real-time worker safety monitoring platform
+
+  </p>
+
+  <button
+    class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
+
+    Launch Dashboard
+
+  </button>
+
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mt-24">
+
+  <div class="card rounded-3xl p-6">
+
+    <h2 class="text-gray-400">
+      Workers Online
+    </h2>
+
+    <p class="text-5xl font-bold mt-4 text-cyan-400">
+      248
+    </p>
+
+  </div>
+
+  <div class="card rounded-3xl p-6">
+
+    <h2 class="text-gray-400">
+      High Risk Alerts
+    </h2>
+
+    <p class="text-5xl font-bold mt-4 text-red-400">
+      12
+    </p>
+
+  </div>
+
+  <div class="card rounded-3xl p-6">
+
+    <h2 class="text-gray-400">
+      Helmet Compliance
+    </h2>
+
+    <p class="text-5xl font-bold mt-4 text-green-400">
+      97%
+    </p>
+
+  </div>
+
+</section>
+
+<section class="px-6 mt-24 mb-24">
+
+  <h2 class="text-4xl font-bold mb-10">
+    Real-Time Monitoring
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <div class="card rounded-3xl p-6">
+
+      <h3 class="text-2xl font-semibold">
+        Heat Risk
+      </h3>
+
+      <div class="mt-6 h-4 bg-gray-700 rounded-full">
+
+        <div class="h-4 bg-red-500 rounded-full w-4/5"></div>
+
+      </div>
+
+      <p class="mt-4 text-red-400">
+        HIGH RISK
+      </p>
+
+    </div>
+
+    <div class="card rounded-3xl p-6">
+
+      <h3 class="text-2xl font-semibold">
+        Toxic Gas
+      </h3>
+
+      <div class="mt-6 h-4 bg-gray-700 rounded-full">
+
+        <div class="h-4 bg-yellow-400 rounded-full w-2/4"></div>
+
+      </div>
+
+      <p class="mt-4 text-yellow-400">
+        WARNING
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+const translations = {
+
+  en:{
+    title:"Protect Every Worker with AI",
+    subtitle:"Real-time worker safety monitoring platform"
+  },
+
+  zh:{
+    title:"用 AI 保护每一位工人",
+    subtitle:"实时工人安全监测平台"
+  },
+
+  ko:{
+    title:"AI로 모든 근로자를 보호하세요",
+    subtitle:"실시간 근로자 안전 모니터링 플랫폼"
+  }
+
+}
+
+function setLang(lang){
+
+  document.getElementById('title').innerText =
+    translations[lang].title
+
+  document.getElementById('subtitle').innerText =
+    translations[lang].subtitle
+}
+
+</script>
+
+</body>
+</html>
