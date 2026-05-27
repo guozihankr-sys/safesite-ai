@@ -104,6 +104,18 @@ animation:pulse 1s infinite;
 100%{opacity:1;}
 }
 
+.alert-critical{
+background:rgba(239,68,68,0.15);
+border:2px solid red;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0.4;}
+100%{opacity:1;}
+}
+
 .video-box{
 position:relative;
 overflow:hidden;
@@ -132,12 +144,6 @@ animation:scan 3s linear infinite;
 position:absolute;
 border:3px solid red;
 animation:blink 1s infinite;
-}
-
-@keyframes blink{
-0%{opacity:1;}
-50%{opacity:0.3;}
-100%{opacity:1;}
 }
 
 @media(max-width:900px){
@@ -190,10 +196,6 @@ SafeSite AI
 🎥 <span data-key="camera">AI Camera</span>
 </div>
 
-<div class="menu-item" onclick="showPage('risk')">
-⚠ <span data-key="riskMap">Risk Map</span>
-</div>
-
 <div class="menu-item" onclick="showPage('emergency')">
 🚨 <span data-key="emergency">Emergency</span>
 </div>
@@ -230,11 +232,14 @@ EN
 Enterprise Safety Command Center
 </h1>
 
-<p data-key="subtitle" class="text-gray-400 mt-4 text-xl">
+<p data-key="subtitle"
+class="text-gray-400 mt-4 text-xl">
+
 AI-based industrial worker protection platform
+
 </p>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10">
 
 <div class="card">
 
@@ -268,6 +273,19 @@ Training Completed
 
 <h2 class="text-5xl text-green-400 mt-4">
 94%
+</h2>
+
+</div>
+
+<div class="card alert-critical">
+
+<p data-key="critical">
+Critical Alerts
+</p>
+
+<h2 id="criticalCount"
+class="text-5xl text-red-500 mt-4">
+3
 </h2>
 
 </div>
@@ -310,11 +328,15 @@ Welder
 📍 <span data-key="location">Location</span>: Sector A-12
 </p>
 
-</div>
+<p class="text-green-400">
+AI Status: SAFE
+</p>
 
 </div>
 
-<div class="card">
+</div>
+
+<div class="card alert-critical">
 
 <h2 class="text-3xl">
 Lee Jisung
@@ -327,15 +349,19 @@ High-altitude Worker
 <div class="mt-6 space-y-3">
 
 <p>
-❤️ <span data-key="heart">Heart Rate</span>: 108 BPM
+❤️ <span data-key="heart">Heart Rate</span>: 128 BPM
 </p>
 
 <p>
-🌡 <span data-key="temp">Temperature</span>: 37.9°C
+🌡 <span data-key="temp">Temperature</span>: 39.2°C
 </p>
 
-<p>
-⚠ <span data-key="fatigue">Fatigue Warning</span>
+<p class="text-red-400">
+⚠ AI Risk Prediction: Heat Stroke Risk
+</p>
+
+<p class="text-red-500 font-bold">
+🚨 DANGER LEVEL: CRITICAL
 </p>
 
 </div>
@@ -374,20 +400,20 @@ Gas Detection
 
 </div>
 
-<div class="card">
+<div class="card alert-critical">
 
 <div class="flex items-center gap-3">
 
 <div class="live-dot"></div>
 
-<h2 data-key="noise">
-Noise Level
+<h2>
+CO GAS ALERT
 </h2>
 
 </div>
 
-<p class="text-5xl text-yellow-400 mt-6">
-76db
+<p class="text-5xl text-red-400 mt-6">
+87%
 </p>
 
 </div>
@@ -404,7 +430,7 @@ Temperature
 
 </div>
 
-<p class="text-5xl text-red-400 mt-6">
+<p class="text-5xl text-yellow-400 mt-6">
 37°C
 </p>
 
@@ -414,7 +440,7 @@ Temperature
 
 </div>
 
-<!-- AI CAMERA -->
+<!-- CAMERA -->
 
 <div id="camera" class="page">
 
@@ -437,7 +463,12 @@ AI Camera
 <div class="scan-line"></div>
 
 <div class="detect-box"
-style="top:18%;left:28%;width:120px;height:180px;">
+style="
+top:18%;
+left:28%;
+width:120px;
+height:180px;
+">
 </div>
 
 </div>
@@ -446,28 +477,30 @@ style="top:18%;left:28%;width:120px;height:180px;">
 
 <div class="space-y-6">
 
-<div class="card">
+<div class="card alert-critical">
 
-<h2 class="text-red-400 text-2xl font-bold"
-data-key="helmetAlert">
-
-🚨 No Helmet Detected
-
+<h2 class="text-red-400 text-2xl font-bold">
+🚨 FALL DETECTED
 </h2>
 
 <p class="mt-4">
-Worker ID: KR-2031
+Worker Collapse Detected
+</p>
+
+<p class="mt-3">
+Location: Tower B-12
+</p>
+
+<p class="mt-3 text-cyan-400">
+Ambulance ETA: 4 min
 </p>
 
 </div>
 
 <div class="card">
 
-<h2 class="text-yellow-300 text-2xl font-bold"
-data-key="smoking">
-
+<h2 class="text-yellow-300 text-2xl font-bold">
 ⚠ Smoking Detected
-
 </h2>
 
 <p class="mt-4">
@@ -475,35 +508,6 @@ Worker ID: KR-8841
 </p>
 
 </div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RISK MAP -->
-
-<div id="risk" class="page">
-
-<h1 data-key="riskMap" class="text-5xl font-bold">
-Risk Map
-</h1>
-
-<div class="card mt-10">
-
-<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1400"
-style="width:100%;border-radius:20px;">
-
-<div class="mt-6">
-
-<p class="text-red-400 text-xl">
-⚠ High Risk Zone - Tower Crane
-</p>
-
-<p class="mt-3 text-yellow-300">
-⚠ Electrical Hazard Area
-</p>
 
 </div>
 
@@ -521,19 +525,30 @@ Emergency
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
 
-<div class="card">
+<div class="card alert-critical">
 
 <h2 class="text-red-400 text-3xl">
-🚨 SOS ALERT
+🚨 SOS EMERGENCY
 </h2>
 
 <p class="mt-5">
-Emergency rescue activated
+Worker emergency signal received
+</p>
+
+<p class="mt-3">
+Location: Sector D-19
+</p>
+
+<p class="mt-3 text-cyan-400">
+Nearest rescue team dispatched
 </p>
 
 <button
-class="mt-6 px-6 py-3 bg-red-500 rounded-xl">
-CALL AMBULANCE
+onclick="activateSOS()"
+class="mt-6 px-6 py-3 bg-red-600 rounded-xl">
+
+ACTIVATE RESCUE
+
 </button>
 
 </div>
@@ -580,6 +595,12 @@ document.getElementById(page).classList.add('active')
 
 }
 
+function activateSOS(){
+
+alert("🚑 Emergency Rescue Team Activated!")
+
+}
+
 const translations={
 
 en:{
@@ -587,24 +608,20 @@ dashboard:"Dashboard",
 workers:"Workers",
 monitor:"Monitoring",
 camera:"AI Camera",
-riskMap:"Risk Map",
 emergency:"Emergency",
 title:"Enterprise Safety Command Center",
 subtitle:"AI-based industrial worker protection platform",
 online:"Workers Online",
 riskWorkers:"High Risk Workers",
 training:"Training Completed",
+critical:"Critical Alerts",
 welder:"Welder",
 high:"High-altitude Worker",
 heart:"Heart Rate",
 temp:"Temperature",
 location:"Location",
-fatigue:"Fatigue Warning",
 gas:"Gas Detection",
-noise:"Noise Level",
-temperature:"Temperature",
-helmetAlert:"🚨 No Helmet Detected",
-smoking:"⚠ Smoking Detected"
+temperature:"Temperature"
 },
 
 zh:{
@@ -612,24 +629,20 @@ dashboard:"控制台",
 workers:"工人管理",
 monitor:"实时监控",
 camera:"AI摄像头",
-riskMap:"风险地图",
 emergency:"应急系统",
 title:"企业级安全指挥中心",
 subtitle:"基于AI的工业工人安全平台",
 online:"在线工人",
 riskWorkers:"高风险工人",
 training:"培训完成率",
+critical:"严重警报",
 welder:"焊工",
 high:"高空作业工人",
 heart:"心率",
 temp:"体温",
 location:"位置",
-fatigue:"疲劳预警",
 gas:"气体检测",
-noise:"噪音监测",
-temperature:"温度监测",
-helmetAlert:"🚨 未佩戴安全帽",
-smoking:"⚠ 检测到吸烟"
+temperature:"温度监测"
 },
 
 kr:{
@@ -637,24 +650,20 @@ dashboard:"대시보드",
 workers:"작업자 관리",
 monitor:"실시간 모니터링",
 camera:"AI 카메라",
-riskMap:"위험 지도",
 emergency:"비상 시스템",
 title:"기업 안전 통합 관제 센터",
 subtitle:"AI 기반 산업 근로자 보호 플랫폼",
 online:"온라인 작업자",
 riskWorkers:"고위험 작업자",
 training:"교육 완료율",
+critical:"심각 경고",
 welder:"용접공",
 high:"고소 작업자",
 heart:"심박수",
 temp:"체온",
 location:"위치",
-fatigue:"피로 경고",
 gas:"가스 감지",
-noise:"소음 모니터링",
-temperature:"온도 모니터링",
-helmetAlert:"🚨 안전모 미착용 감지",
-smoking:"⚠ 흡연 감지"
+temperature:"온도 모니터링"
 }
 
 }
@@ -684,6 +693,13 @@ const saved=localStorage.getItem("language") || "en"
 setLanguage(saved)
 
 }
+
+setInterval(()=>{
+
+document.getElementById("criticalCount").innerText =
+Math.floor(Math.random()*5)+1
+
+},3000)
 
 </script>
 
