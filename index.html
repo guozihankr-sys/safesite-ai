@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -9,23 +11,27 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+
     body{
       margin:0;
       background:#050816;
       color:white;
       font-family:Arial,sans-serif;
+      overflow-x:hidden;
     }
 
     .card{
       background:rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
     }
 
     .glow{
       box-shadow:0 0 25px rgba(34,211,238,0.4);
     }
+
   </style>
+
 </head>
 
 <body>
@@ -38,19 +44,28 @@
 
   <div class="flex gap-2">
 
-    <button onclick="setLang('en')"
+    <button
+      onclick="setLang('en')"
       class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+
       EN
+
     </button>
 
-    <button onclick="setLang('zh')"
+    <button
+      onclick="setLang('zh')"
       class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+
       中文
+
     </button>
 
-    <button onclick="setLang('ko')"
+    <button
+      onclick="setLang('ko')"
       class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+
       한국어
+
     </button>
 
   </div>
@@ -59,14 +74,16 @@
 
 <section class="text-center px-6 mt-20">
 
-  <h1 id="title"
+  <h1
+    id="title"
     class="text-5xl md:text-7xl font-bold leading-tight">
 
     Protect Every Worker with AI
 
   </h1>
 
-  <p id="subtitle"
+  <p
+    id="subtitle"
     class="mt-6 text-gray-400 text-xl">
 
     Real-time worker safety monitoring platform
@@ -74,6 +91,7 @@
   </p>
 
   <button
+    id="launch"
     class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
 
     Launch Dashboard
@@ -86,8 +104,12 @@
 
   <div class="card rounded-3xl p-6">
 
-    <h2 class="text-gray-400">
+    <h2
+      id="workers"
+      class="text-gray-400">
+
       Workers Online
+
     </h2>
 
     <p class="text-5xl font-bold mt-4 text-cyan-400">
@@ -98,8 +120,12 @@
 
   <div class="card rounded-3xl p-6">
 
-    <h2 class="text-gray-400">
+    <h2
+      id="alerts"
+      class="text-gray-400">
+
       High Risk Alerts
+
     </h2>
 
     <p class="text-5xl font-bold mt-4 text-red-400">
@@ -110,8 +136,12 @@
 
   <div class="card rounded-3xl p-6">
 
-    <h2 class="text-gray-400">
+    <h2
+      id="helmet"
+      class="text-gray-400">
+
       Helmet Compliance
+
     </h2>
 
     <p class="text-5xl font-bold mt-4 text-green-400">
@@ -124,16 +154,24 @@
 
 <section class="px-6 mt-24 mb-24">
 
-  <h2 class="text-4xl font-bold mb-10">
+  <h2
+    id="monitoring"
+    class="text-4xl font-bold mb-10">
+
     Real-Time Monitoring
+
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
     <div class="card rounded-3xl p-6">
 
-      <h3 class="text-2xl font-semibold">
+      <h3
+        id="heat"
+        class="text-2xl font-semibold">
+
         Heat Risk
+
       </h3>
 
       <div class="mt-6 h-4 bg-gray-700 rounded-full">
@@ -142,16 +180,24 @@
 
       </div>
 
-      <p class="mt-4 text-red-400">
+      <p
+        id="high"
+        class="mt-4 text-red-400">
+
         HIGH RISK
+
       </p>
 
     </div>
 
     <div class="card rounded-3xl p-6">
 
-      <h3 class="text-2xl font-semibold">
+      <h3
+        id="toxic"
+        class="text-2xl font-semibold">
+
         Toxic Gas
+
       </h3>
 
       <div class="mt-6 h-4 bg-gray-700 rounded-full">
@@ -160,8 +206,12 @@
 
       </div>
 
-      <p class="mt-4 text-yellow-400">
+      <p
+        id="warning"
+        class="mt-4 text-yellow-400">
+
         WARNING
+
       </p>
 
     </div>
@@ -174,19 +224,67 @@
 
 const translations = {
 
-  en:{
-    title:"Protect Every Worker with AI",
-    subtitle:"Real-time worker safety monitoring platform"
+  en: {
+
+    title: "Protect Every Worker with AI",
+    subtitle: "Real-time worker safety monitoring platform",
+
+    workers: "Workers Online",
+    alerts: "High Risk Alerts",
+    helmet: "Helmet Compliance",
+
+    monitoring: "Real-Time Monitoring",
+
+    heat: "Heat Risk",
+    toxic: "Toxic Gas",
+
+    high: "HIGH RISK",
+    warning: "WARNING",
+
+    launch: "Launch Dashboard"
+
   },
 
-  zh:{
-    title:"用 AI 保护每一位工人",
-    subtitle:"实时工人安全监测平台"
+  zh: {
+
+    title: "用 AI 保护每一位工人",
+    subtitle: "实时工人安全监测平台",
+
+    workers: "在线工人数",
+    alerts: "高风险警报",
+    helmet: "安全帽佩戴率",
+
+    monitoring: "实时监控",
+
+    heat: "高温风险",
+    toxic: "有毒气体",
+
+    high: "高风险",
+    warning: "警告",
+
+    launch: "进入控制台"
+
   },
 
-  ko:{
-    title:"AI로 모든 근로자를 보호하세요",
-    subtitle:"실시간 근로자 안전 모니터링 플랫폼"
+  ko: {
+
+    title: "AI로 모든 근로자를 보호하세요",
+    subtitle: "실시간 근로자 안전 모니터링 플랫폼",
+
+    workers: "현재 작업자",
+    alerts: "고위험 경고",
+    helmet: "안전모 착용률",
+
+    monitoring: "실시간 모니터링",
+
+    heat: "고온 위험",
+    toxic: "유독 가스",
+
+    high: "고위험",
+    warning: "경고",
+
+    launch: "대시보드 실행"
+
   }
 
 }
@@ -198,6 +296,34 @@ function setLang(lang){
 
   document.getElementById('subtitle').innerText =
     translations[lang].subtitle
+
+  document.getElementById('workers').innerText =
+    translations[lang].workers
+
+  document.getElementById('alerts').innerText =
+    translations[lang].alerts
+
+  document.getElementById('helmet').innerText =
+    translations[lang].helmet
+
+  document.getElementById('monitoring').innerText =
+    translations[lang].monitoring
+
+  document.getElementById('heat').innerText =
+    translations[lang].heat
+
+  document.getElementById('toxic').innerText =
+    translations[lang].toxic
+
+  document.getElementById('high').innerText =
+    translations[lang].high
+
+  document.getElementById('warning').innerText =
+    translations[lang].warning
+
+  document.getElementById('launch').innerText =
+    translations[lang].launch
+
 }
 
 </script>
