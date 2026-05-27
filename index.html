@@ -3,328 +3,458 @@
 
 <head>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>SafeSite AI</title>
+<title>SafeSite AI</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
+<style>
 
-    body{
-      margin:0;
-      background:#050816;
-      color:white;
-      font-family:Arial,sans-serif;
-      overflow-x:hidden;
-    }
+body{
+  margin:0;
+  background:#050816;
+  color:white;
+  font-family:Arial,sans-serif;
+  overflow-x:hidden;
+}
 
-    .card{
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter:blur(12px);
-    }
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+}
 
-    .glow{
-      box-shadow:0 0 25px rgba(34,211,238,0.4);
-    }
+.glow{
+  box-shadow:0 0 25px rgba(34,211,238,0.4);
+}
 
-  </style>
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:rgba(10,10,20,0.9);
+  border-top:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+}
+
+.alert-box{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#ef4444;
+  padding:18px;
+  border-radius:20px;
+  display:none;
+  animation:flash 1s infinite;
+  z-index:999;
+}
+
+@keyframes flash{
+  0%{opacity:1}
+  50%{opacity:0.5}
+  100%{opacity:1}
+}
+
+.status-safe{
+  color:#22c55e;
+}
+
+.status-warning{
+  color:#facc15;
+}
+
+.status-danger{
+  color:#ef4444;
+}
+
+</style>
 
 </head>
 
 <body>
 
+<div id="alertBox" class="alert-box">
+
+⚠ Worker Collapse Detected<br/>
+Emergency Team Dispatched
+
+</div>
+
 <header class="flex justify-between items-center p-6">
 
-  <h1 class="text-3xl font-bold text-cyan-400">
-    SafeSite AI
-  </h1>
+<h1 class="text-3xl font-bold text-cyan-400">
+SafeSite AI
+</h1>
 
-  <div class="flex gap-2">
+<div class="flex gap-2">
 
-    <button
-      onclick="setLang('en')"
-      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+<button onclick="setLang('en')"
+class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+EN
+</button>
 
-      EN
+<button onclick="setLang('zh')"
+class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+中文
+</button>
 
-    </button>
+<button onclick="setLang('ko')"
+class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
+한국어
+</button>
 
-    <button
-      onclick="setLang('zh')"
-      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
-
-      中文
-
-    </button>
-
-    <button
-      onclick="setLang('ko')"
-      class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
-
-      한국어
-
-    </button>
-
-  </div>
+</div>
 
 </header>
 
-<section class="text-center px-6 mt-20">
+<section class="px-6">
 
-  <h1
-    id="title"
-    class="text-5xl md:text-7xl font-bold leading-tight">
+<div class="flex justify-between items-center">
 
-    Protect Every Worker with AI
+<div>
 
-  </h1>
+<h1 id="title"
+class="text-5xl md:text-7xl font-bold leading-tight">
 
-  <p
-    id="subtitle"
-    class="mt-6 text-gray-400 text-xl">
+Protect Every Worker with AI
 
-    Real-time worker safety monitoring platform
+</h1>
 
-  </p>
+<p id="subtitle"
+class="mt-6 text-gray-400 text-xl">
 
-  <button
-    id="launch"
-    class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
+Real-time worker safety monitoring platform
 
-    Launch Dashboard
+</p>
 
-  </button>
+</div>
 
-</section>
+<div class="text-right">
 
-<section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mt-24">
+<p class="text-gray-400">
+SYSTEM TIME
+</p>
 
-  <div class="card rounded-3xl p-6">
+<h2 id="clock"
+class="text-2xl font-bold text-cyan-400">
+00:00:00
+</h2>
 
-    <h2
-      id="workers"
-      class="text-gray-400">
+</div>
 
-      Workers Online
+</div>
 
-    </h2>
+<button id="launch"
+class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
 
-    <p class="text-5xl font-bold mt-4 text-cyan-400">
-      248
-    </p>
+Launch Dashboard
 
-  </div>
-
-  <div class="card rounded-3xl p-6">
-
-    <h2
-      id="alerts"
-      class="text-gray-400">
-
-      High Risk Alerts
-
-    </h2>
-
-    <p class="text-5xl font-bold mt-4 text-red-400">
-      12
-    </p>
-
-  </div>
-
-  <div class="card rounded-3xl p-6">
-
-    <h2
-      id="helmet"
-      class="text-gray-400">
-
-      Helmet Compliance
-
-    </h2>
-
-    <p class="text-5xl font-bold mt-4 text-green-400">
-      97%
-    </p>
-
-  </div>
+</button>
 
 </section>
 
-<section class="px-6 mt-24 mb-24">
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 mt-20">
 
-  <h2
-    id="monitoring"
-    class="text-4xl font-bold mb-10">
+<div class="card rounded-3xl p-6">
 
-    Real-Time Monitoring
+<h2 id="workers" class="text-gray-400">
+Workers Online
+</h2>
 
-  </h2>
+<p id="workerCount"
+class="text-5xl font-bold mt-4 text-cyan-400">
+248
+</p>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+</div>
 
-    <div class="card rounded-3xl p-6">
+<div class="card rounded-3xl p-6">
 
-      <h3
-        id="heat"
-        class="text-2xl font-semibold">
+<h2 id="alerts" class="text-gray-400">
+High Risk Alerts
+</h2>
 
-        Heat Risk
+<p id="alertCount"
+class="text-5xl font-bold mt-4 text-red-400">
+12
+</p>
 
-      </h3>
+</div>
 
-      <div class="mt-6 h-4 bg-gray-700 rounded-full">
+<div class="card rounded-3xl p-6">
 
-        <div class="h-4 bg-red-500 rounded-full w-4/5"></div>
+<h2 id="helmet" class="text-gray-400">
+Helmet Compliance
+</h2>
 
-      </div>
+<p id="helmetRate"
+class="text-5xl font-bold mt-4 text-green-400">
+97%
+</p>
 
-      <p
-        id="high"
-        class="mt-4 text-red-400">
-
-        HIGH RISK
-
-      </p>
-
-    </div>
-
-    <div class="card rounded-3xl p-6">
-
-      <h3
-        id="toxic"
-        class="text-2xl font-semibold">
-
-        Toxic Gas
-
-      </h3>
-
-      <div class="mt-6 h-4 bg-gray-700 rounded-full">
-
-        <div class="h-4 bg-yellow-400 rounded-full w-2/4"></div>
-
-      </div>
-
-      <p
-        id="warning"
-        class="mt-4 text-yellow-400">
-
-        WARNING
-
-      </p>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
+
+<section class="px-6 mt-24 mb-40">
+
+<h2 id="monitoring"
+class="text-4xl font-bold mb-10">
+
+Real-Time Monitoring
+
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div class="card rounded-3xl p-6">
+
+<h3 id="heat"
+class="text-2xl font-semibold">
+
+Heat Risk
+
+</h3>
+
+<div class="mt-6 h-4 bg-gray-700 rounded-full">
+
+<div class="h-4 bg-red-500 rounded-full w-4/5"></div>
+
+</div>
+
+<p id="heatStatus"
+class="mt-4 text-red-400 text-xl font-bold">
+
+HIGH RISK
+
+</p>
+
+</div>
+
+<div class="card rounded-3xl p-6">
+
+<h3 id="toxic"
+class="text-2xl font-semibold">
+
+Toxic Gas
+
+</h3>
+
+<div class="mt-6 h-4 bg-gray-700 rounded-full">
+
+<div class="h-4 bg-yellow-400 rounded-full w-2/4"></div>
+
+</div>
+
+<p id="gasStatus"
+class="mt-4 text-yellow-400 text-xl font-bold">
+
+WARNING
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<nav class="bottom-nav flex justify-around py-4">
+
+<div class="text-center">
+🏠<br/>Home
+</div>
+
+<div class="text-center">
+📡<br/>Monitor
+</div>
+
+<div class="text-center">
+📊<br/>Analytics
+</div>
+
+<div class="text-center">
+🚨<br/>SOS
+</div>
+
+<div class="text-center">
+👤<br/>Profile
+</div>
+
+</nav>
 
 <script>
 
 const translations = {
 
-  en: {
+en:{
+title:"Protect Every Worker with AI",
+subtitle:"Real-time worker safety monitoring platform",
+workers:"Workers Online",
+alerts:"High Risk Alerts",
+helmet:"Helmet Compliance",
+monitoring:"Real-Time Monitoring",
+heat:"Heat Risk",
+toxic:"Toxic Gas",
+launch:"Launch Dashboard"
+},
 
-    title: "Protect Every Worker with AI",
-    subtitle: "Real-time worker safety monitoring platform",
+zh:{
+title:"用 AI 保护每一位工人",
+subtitle:"实时工人安全监测平台",
+workers:"在线工人数",
+alerts:"高风险警报",
+helmet:"安全帽佩戴率",
+monitoring:"实时监控",
+heat:"高温风险",
+toxic:"有毒气体",
+launch:"进入控制台"
+},
 
-    workers: "Workers Online",
-    alerts: "High Risk Alerts",
-    helmet: "Helmet Compliance",
-
-    monitoring: "Real-Time Monitoring",
-
-    heat: "Heat Risk",
-    toxic: "Toxic Gas",
-
-    high: "HIGH RISK",
-    warning: "WARNING",
-
-    launch: "Launch Dashboard"
-
-  },
-
-  zh: {
-
-    title: "用 AI 保护每一位工人",
-    subtitle: "实时工人安全监测平台",
-
-    workers: "在线工人数",
-    alerts: "高风险警报",
-    helmet: "安全帽佩戴率",
-
-    monitoring: "实时监控",
-
-    heat: "高温风险",
-    toxic: "有毒气体",
-
-    high: "高风险",
-    warning: "警告",
-
-    launch: "进入控制台"
-
-  },
-
-  ko: {
-
-    title: "AI로 모든 근로자를 보호하세요",
-    subtitle: "실시간 근로자 안전 모니터링 플랫폼",
-
-    workers: "현재 작업자",
-    alerts: "고위험 경고",
-    helmet: "안전모 착용률",
-
-    monitoring: "실시간 모니터링",
-
-    heat: "고온 위험",
-    toxic: "유독 가스",
-
-    high: "고위험",
-    warning: "경고",
-
-    launch: "대시보드 실행"
-
-  }
+ko:{
+title:"AI로 모든 근로자를 보호하세요",
+subtitle:"실시간 근로자 안전 모니터링 플랫폼",
+workers:"현재 작업자",
+alerts:"고위험 경고",
+helmet:"안전모 착용률",
+monitoring:"실시간 모니터링",
+heat:"고온 위험",
+toxic:"유독 가스",
+launch:"대시보드 실행"
+}
 
 }
 
 function setLang(lang){
 
-  document.getElementById('title').innerText =
-    translations[lang].title
+document.getElementById("title").innerText =
+translations[lang].title
 
-  document.getElementById('subtitle').innerText =
-    translations[lang].subtitle
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle
 
-  document.getElementById('workers').innerText =
-    translations[lang].workers
+document.getElementById("workers").innerText =
+translations[lang].workers
 
-  document.getElementById('alerts').innerText =
-    translations[lang].alerts
+document.getElementById("alerts").innerText =
+translations[lang].alerts
 
-  document.getElementById('helmet').innerText =
-    translations[lang].helmet
+document.getElementById("helmet").innerText =
+translations[lang].helmet
 
-  document.getElementById('monitoring').innerText =
-    translations[lang].monitoring
+document.getElementById("monitoring").innerText =
+translations[lang].monitoring
 
-  document.getElementById('heat').innerText =
-    translations[lang].heat
+document.getElementById("heat").innerText =
+translations[lang].heat
 
-  document.getElementById('toxic').innerText =
-    translations[lang].toxic
+document.getElementById("toxic").innerText =
+translations[lang].toxic
 
-  document.getElementById('high').innerText =
-    translations[lang].high
-
-  document.getElementById('warning').innerText =
-    translations[lang].warning
-
-  document.getElementById('launch').innerText =
-    translations[lang].launch
+document.getElementById("launch").innerText =
+translations[lang].launch
 
 }
+
+function updateClock(){
+
+const now = new Date()
+
+document.getElementById("clock").innerText =
+now.toLocaleTimeString()
+
+}
+
+setInterval(updateClock,1000)
+
+function randomData(){
+
+const workers =
+240 + Math.floor(Math.random()*20)
+
+const alerts =
+10 + Math.floor(Math.random()*10)
+
+const helmet =
+95 + Math.floor(Math.random()*5)
+
+document.getElementById("workerCount").innerText =
+workers
+
+document.getElementById("alertCount").innerText =
+alerts
+
+document.getElementById("helmetRate").innerText =
+helmet + "%"
+
+}
+
+setInterval(randomData,3000)
+
+const statuses = [
+
+{
+text:"SAFE",
+class:"status-safe"
+},
+
+{
+text:"WARNING",
+class:"status-warning"
+},
+
+{
+text:"HIGH RISK",
+class:"status-danger"
+}
+
+]
+
+function updateStatus(){
+
+const heat =
+statuses[Math.floor(Math.random()*3)]
+
+const gas =
+statuses[Math.floor(Math.random()*3)]
+
+const heatEl =
+document.getElementById("heatStatus")
+
+const gasEl =
+document.getElementById("gasStatus")
+
+heatEl.innerText = heat.text
+heatEl.className =
+"mt-4 text-xl font-bold " + heat.class
+
+gasEl.innerText = gas.text
+gasEl.className =
+"mt-4 text-xl font-bold " + gas.class
+
+}
+
+setInterval(updateStatus,4000)
+
+function triggerAlert(){
+
+const box =
+document.getElementById("alertBox")
+
+box.style.display = "block"
+
+setTimeout(()=>{
+
+box.style.display = "none"
+
+},5000)
+
+}
+
+setInterval(triggerAlert,15000)
 
 </script>
 
