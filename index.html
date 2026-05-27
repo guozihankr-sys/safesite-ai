@@ -1,118 +1,285 @@
-<!-- 把这里替换成你现在 index.html 的 Workers 到 Settings 部分 -->
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- WORKERS -->
+<head>
 
-<div id="workers" class="page">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="workers">
-Workers
+<title>SafeSite AI Enterprise</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050816;
+color:white;
+overflow:hidden;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:270px;
+height:100vh;
+background:#0f172a;
+padding:25px;
+overflow:auto;
+border-right:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:35px;
+}
+
+.menu-item{
+padding:18px;
+margin-bottom:14px;
+border-radius:18px;
+background:#1e293b;
+cursor:pointer;
+transition:0.3s;
+font-size:18px;
+}
+
+.menu-item:hover{
+background:#06b6d4;
+transform:translateX(5px);
+}
+
+.main{
+margin-left:290px;
+padding:30px;
+height:100vh;
+overflow:auto;
+}
+
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+.card{
+background:#111827;
+padding:24px;
+border-radius:24px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.alert{
+border:2px solid red;
+background:rgba(239,68,68,0.12);
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0.4;}
+100%{opacity:1;}
+}
+
+.lang-buttons button{
+padding:10px 15px;
+border:none;
+border-radius:12px;
+background:#334155;
+color:white;
+cursor:pointer;
+margin-left:8px;
+}
+
+.notification{
+position:fixed;
+top:20px;
+right:20px;
+background:#ef4444;
+padding:18px;
+border-radius:18px;
+z-index:999;
+animation:slide 0.5s ease;
+}
+
+@keyframes slide{
+from{
+transform:translateX(400px);
+}
+to{
+transform:translateX(0);
+}
+}
+
+.weather-box{
+background:linear-gradient(135deg,#0ea5e9,#2563eb);
+padding:25px;
+border-radius:24px;
+}
+
+.score-circle{
+width:150px;
+height:150px;
+border-radius:50%;
+border:10px solid #22d3ee;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+font-weight:bold;
+margin:auto;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+display:flex;
+gap:10px;
+overflow:auto;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+.menu-item{
+min-width:180px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="notification"
+class="notification hidden">
+
+<h2 data-key="notifyTitle">
+🚨 AI ALERT
+</h2>
+
+<p data-key="notifyText">
+Worker inactive for 5 minutes
+</p>
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+SafeSite AI
+</div>
+
+<div class="menu-item" onclick="showPage('dashboard')">
+🏠 <span data-key="dashboard">Dashboard</span>
+</div>
+
+<div class="menu-item" onclick="showPage('workers')">
+👷 <span data-key="workers">Workers</span>
+</div>
+
+<div class="menu-item" onclick="showPage('monitor')">
+📡 <span data-key="monitor">Monitoring</span>
+</div>
+
+<div class="menu-item" onclick="showPage('cctv')">
+🎥 <span data-key="cctv">CCTV Wall</span>
+</div>
+
+<div class="menu-item" onclick="showPage('riskmap')">
+🗺 <span data-key="riskmap">Risk Map</span>
+</div>
+
+<div class="menu-item" onclick="showPage('training')">
+📚 <span data-key="training">Training</span>
+</div>
+
+<div class="menu-item" onclick="showPage('emergency')">
+🚨 <span data-key="emergency">Emergency</span>
+</div>
+
+<div class="menu-item" onclick="showPage('reports')">
+📄 <span data-key="reports">Reports</span>
+</div>
+
+<div class="menu-item" onclick="showPage('settings')">
+⚙ <span data-key="settings">Settings</span>
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOP -->
+
+<div class="flex justify-between items-center mb-8">
+
+<div>
+
+<h1 class="text-5xl font-bold"
+data-key="title">
+
+Enterprise Safety Control Center
+
 </h1>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<p class="text-gray-400 mt-3"
+data-key="subtitle">
 
-<div class="card">
+AI Real-time Industrial Safety Platform
 
-<h2 class="text-3xl">
-Kim Minsoo
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p data-key="welder">
-🧑‍🏭 Welder
-</p>
-
-<p data-key="heart">
-❤️ Heart Rate: 78 BPM
-</p>
-
-<p data-key="tempWorker">
-🌡 Temperature: 36.5°C
-</p>
-
-<p data-key="helmet">
-🪖 Helmet Connected
-</p>
-
-<p data-key="gps">
-📍 GPS: A-12
-</p>
-
-<p data-key="certificate">
-📄 Welding Certificate: Valid
-</p>
-
-<p class="text-green-400 font-bold"
-data-key="safe">
-SAFE
 </p>
 
 </div>
 
-</div>
+<div class="flex items-center gap-5">
 
-<div class="card alert">
+<div class="text-right">
 
-<h2 class="text-3xl">
-Lee Jisung
-</h2>
+<p class="text-cyan-400 font-bold"
+data-key="admin">
 
-<div class="mt-5 space-y-3">
+ADMIN ONLINE
 
-<p data-key="highWorker">
-🏗 High-altitude Worker
 </p>
 
-<p data-key="heartDanger">
-❤️ Heart Rate: 128 BPM
-</p>
-
-<p data-key="tempDanger">
-🌡 Temperature: 39.1°C
-</p>
-
-<p data-key="fatigue">
-😴 AI Fatigue Detected
-</p>
-
-<p data-key="riskZone">
-📍 Risk Zone B
-</p>
-
-<p class="text-red-400 font-bold"
-data-key="highRisk">
-HIGH RISK
+<p class="text-gray-400">
+SafeSite Enterprise
 </p>
 
 </div>
 
-</div>
+<div class="lang-buttons">
 
-<div class="card">
+<button onclick="setLanguage('en')">
+EN
+</button>
 
-<h2 class="text-3xl">
-Park Jinwoo
-</h2>
+<button onclick="setLanguage('zh')">
+中文
+</button>
 
-<div class="mt-5 space-y-3">
-
-<p data-key="electrician">
-⚡ Electrician
-</p>
-
-<p data-key="offlineMove">
-🕒 Last Movement: Offline
-</p>
-
-<p data-key="medical">
-🏥 Medical Check: Passed
-</p>
-
-<p class="text-gray-400 font-bold"
-data-key="offlineStatus">
-OFFLINE
-</p>
+<button onclick="setLanguage('kr')">
+한국어
+</button>
 
 </div>
 
@@ -120,111 +287,181 @@ OFFLINE
 
 </div>
 
-</div>
+<!-- DASHBOARD -->
 
-<!-- MONITOR -->
-
-<div id="monitor" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="monitor">
-Monitoring
-</h1>
+<div id="dashboard" class="page active">
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
 <div class="card">
 
-<h2 data-key="gas">
-☣ Gas Detection
+<p data-key="online">
+Workers Online
+</p>
+
+<h2 class="text-5xl text-cyan-400 mt-4">
+248
 </h2>
 
-<p class="text-5xl text-cyan-400 mt-5">
-23%
+</div>
+
+<div class="card">
+
+<p data-key="offline">
+Offline Workers
 </p>
+
+<h2 class="text-5xl text-gray-400 mt-4">
+12
+</h2>
+
+</div>
+
+<div class="card">
+
+<p data-key="risk">
+High Risk Workers
+</p>
+
+<h2 class="text-5xl text-red-400 mt-4">
+8
+</h2>
 
 </div>
 
 <div class="card alert">
 
-<h2 data-key="co">
-🚨 CO Warning
-</h2>
-
-<p class="text-5xl text-red-400 mt-5">
-87%
+<p data-key="alerts">
+Critical Alerts
 </p>
 
-</div>
-
-<div class="card">
-
-<h2 data-key="noise">
-🔊 Noise Level
+<h2 id="criticalCount"
+class="text-5xl text-red-500 mt-4">
+3
 </h2>
 
-<p class="text-5xl text-yellow-400 mt-5">
-91dB
-</p>
-
-</div>
-
-<div class="card">
-
-<h2 data-key="dust">
-🌫 Dust Density
-</h2>
-
-<p class="text-5xl text-orange-400 mt-5">
-68%
-</p>
-
 </div>
 
 </div>
+
+<!-- SECOND ROW -->
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+<!-- WEATHER -->
+
+<div class="weather-box">
+
+<h2 class="text-3xl font-bold"
+data-key="weather">
+
+🌦 AI Weather Warning
+
+</h2>
+
+<div class="mt-6 space-y-3">
+
+<p data-key="temp">
+🌡 Temperature: 39°C
+</p>
+
+<p data-key="wind">
+💨 Strong Wind Detected
+</p>
+
+<p data-key="storm">
+⛈ Heavy Rain Warning
+</p>
+
+<p class="text-red-200 font-bold"
+data-key="stopwork">
+
+⚠ High-altitude Work Suspended
+
+</p>
+
+</div>
+
+</div>
+
+<!-- AI SCORE -->
+
+<div class="card">
+
+<h2 class="text-3xl text-cyan-400"
+data-key="score">
+
+AI Safety Score
+
+</h2>
+
+<div class="score-circle mt-8">
+92
+</div>
+
+<p class="text-center mt-6 text-gray-400"
+data-key="scoreDesc">
+
+Excellent Site Safety Status
+
+</p>
+
+</div>
+
+</div>
+
+<!-- AI RISK -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+<div class="card alert">
+
+<h2 class="text-2xl text-red-400"
+data-key="riskPrediction">
+
+⚠ AI Risk Prediction
+
+</h2>
+
+<div class="mt-5 space-y-3">
+
+<p data-key="risk1">
+Heat Stroke Risk Increasing
+</p>
+
+<p data-key="risk2">
+Tower Crane Wind Danger
+</p>
+
+<p data-key="risk3">
+Fatigue Risk Detected
+</p>
+
+</div>
+
+</div>
 
 <div class="card">
 
 <h2 class="text-2xl text-cyan-400"
-data-key="tower">
-🏗 Tower Crane Status
+data-key="tracking">
+
+📍 Live Worker Tracking
+
 </h2>
 
 <div class="mt-5 space-y-3">
 
-<p data-key="tilt">
-📐 Tilt Angle: Normal
+<p>
+Kim Minsoo — A-12
 </p>
 
-<p data-key="windSpeed">
-💨 Wind Speed: 32km/h
+<p>
+Lee Jisung — Tower B
 </p>
 
-<p data-key="safeOperation">
-✅ Safe Operation
-</p>
-
-</div>
-
-</div>
-
-<div class="card alert">
-
-<h2 class="text-2xl text-red-400"
-data-key="electricRisk">
-⚡ Electric Risk
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p data-key="highVoltage">
-High Voltage Fluctuation
-</p>
-
-<p data-key="warningShutdown">
-AI Suggests Temporary Shutdown
+<p>
+Park Jinwoo — Basement B2
 </p>
 
 </div>
@@ -235,342 +472,212 @@ AI Suggests Temporary Shutdown
 
 </div>
 
-<!-- CCTV -->
+<!-- EMPTY PAGES -->
+
+<div id="workers" class="page">
+<h1 class="text-5xl font-bold">Workers</h1>
+</div>
+
+<div id="monitor" class="page">
+<h1 class="text-5xl font-bold">Monitoring</h1>
+</div>
 
 <div id="cctv" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="cctv">
-CCTV Wall
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card">
-
-<div class="bg-black rounded-xl h-64 flex items-center justify-center">
-
-<span class="text-gray-500">
-CAMERA A
-</span>
-
+<h1 class="text-5xl font-bold">CCTV Wall</h1>
 </div>
-
-<div class="mt-4">
-
-<p class="text-green-400 font-bold"
-data-key="normal">
-✅ Normal Activity
-</p>
-
-</div>
-
-</div>
-
-<div class="card alert">
-
-<div class="bg-black rounded-xl h-64 flex items-center justify-center">
-
-<span class="text-red-400">
-CAMERA B
-</span>
-
-</div>
-
-<div class="mt-4">
-
-<p class="text-red-400 font-bold"
-data-key="helmetMissing">
-🚨 Helmet Missing Detected
-</p>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="bg-black rounded-xl h-64 flex items-center justify-center">
-
-<span class="text-gray-500">
-CAMERA C
-</span>
-
-</div>
-
-<div class="mt-4">
-
-<p class="text-yellow-400 font-bold"
-data-key="smoking">
-🚬 Smoking Detected
-</p>
-
-</div>
-
-</div>
-
-<div class="card alert">
-
-<div class="bg-black rounded-xl h-64 flex items-center justify-center">
-
-<span class="text-red-400">
-CAMERA D
-</span>
-
-</div>
-
-<div class="mt-4">
-
-<p class="text-red-400 font-bold"
-data-key="restricted">
-🚨 Restricted Area Entry
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- RISK MAP -->
 
 <div id="riskmap" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="riskmap">
-Risk Map
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card bg-green-900">
-
-<h2 class="text-3xl"
-data-key="zoneA">
-🟢 Zone A Safe
-</h2>
-
-<p class="mt-5"
-data-key="zoneADesc">
-No active risks detected
-</p>
-
+<h1 class="text-5xl font-bold">Risk Map</h1>
 </div>
-
-<div class="card bg-red-900">
-
-<h2 class="text-3xl"
-data-key="zoneB">
-🔴 Zone B High Risk
-</h2>
-
-<p class="mt-5"
-data-key="zoneBDesc">
-Toxic gas detected
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- TRAINING -->
 
 <div id="training" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="training">
-Training
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card">
-
-<h2 class="text-2xl"
-data-key="course">
-📚 Safety Courses
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p>
-✔ Fall Protection
-</p>
-
-<p>
-✔ Fire Safety
-</p>
-
-<p>
-✔ Electrical Safety
-</p>
-
+<h1 class="text-5xl font-bold">Training</h1>
 </div>
-
-</div>
-
-<div class="card alert">
-
-<h2 class="text-2xl text-red-400"
-data-key="exam">
-📝 Training Exam
-</h2>
-
-<p class="mt-5"
-data-key="examWarn">
-2 Workers Failed Certification
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- EMERGENCY -->
 
 <div id="emergency" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="emergency">
-Emergency
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<div class="card alert">
-
-<h2 class="text-2xl text-red-400">
-🚑 SOS
-</h2>
-
-<p class="mt-5"
-data-key="ambulance">
-Nearest Ambulance Dispatched
-</p>
-
+<h1 class="text-5xl font-bold">Emergency</h1>
 </div>
-
-<div class="card">
-
-<h2 class="text-2xl">
-🏥 Hospital
-</h2>
-
-<p class="mt-5">
-Seoul Central Medical Center
-</p>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl">
-👮 Safety Supervisor
-</h2>
-
-<p class="mt-5">
-Kim Supervisor
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- REPORTS -->
 
 <div id="reports" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="reports">
-Reports
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card">
-
-<h2 class="text-2xl"
-data-key="monthly">
-📊 Monthly Report
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p>
-248 Workers Active
-</p>
-
-<p>
-12 Critical Alerts
-</p>
-
-<p>
-95% Helmet Compliance
-</p>
-
+<h1 class="text-5xl font-bold">Reports</h1>
 </div>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl"
-data-key="trend">
-📈 Safety Trend
-</h2>
-
-<p class="mt-5 text-green-400">
-+18% Safer Than Last Month
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- SETTINGS -->
 
 <div id="settings" class="page">
-
-<h1 class="text-5xl font-bold mb-10"
-data-key="settings">
-Settings
-</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-<div class="card">
-
-<h2 class="text-2xl">
-🌐 Language
-</h2>
-
-<p class="mt-5">
-English / 中文 / 한국어
-</p>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl">
-🤖 AI Sensitivity
-</h2>
-
-<p class="mt-5">
-HIGH
-</p>
-
+<h1 class="text-5xl font-bold">Settings</h1>
 </div>
 
 </div>
 
-</div>
+<script>
+
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(p=>{
+p.classList.remove("active")
+})
+
+document.getElementById(page)
+.classList.add("active")
+
+}
+
+function showNotification(){
+
+const box =
+document.getElementById("notification")
+
+box.classList.remove("hidden")
+
+setTimeout(()=>{
+box.classList.add("hidden")
+},5000)
+
+}
+
+setInterval(()=>{
+
+showNotification()
+
+document.getElementById("criticalCount")
+.innerText =
+Math.floor(Math.random()*5)+1
+
+},10000)
+
+const translations={
+
+en:{
+dashboard:"Dashboard",
+workers:"Workers",
+monitor:"Monitoring",
+cctv:"CCTV Wall",
+riskmap:"Risk Map",
+training:"Training",
+emergency:"Emergency",
+reports:"Reports",
+settings:"Settings",
+title:"Enterprise Safety Control Center",
+subtitle:"AI Real-time Industrial Safety Platform",
+admin:"ADMIN ONLINE",
+online:"Workers Online",
+offline:"Offline Workers",
+risk:"High Risk Workers",
+alerts:"Critical Alerts",
+weather:"🌦 AI Weather Warning",
+temp:"🌡 Temperature: 39°C",
+wind:"💨 Strong Wind Detected",
+storm:"⛈ Heavy Rain Warning",
+stopwork:"⚠ High-altitude Work Suspended",
+score:"AI Safety Score",
+scoreDesc:"Excellent Site Safety Status",
+riskPrediction:"⚠ AI Risk Prediction",
+risk1:"Heat Stroke Risk Increasing",
+risk2:"Tower Crane Wind Danger",
+risk3:"Fatigue Risk Detected",
+tracking:"📍 Live Worker Tracking",
+notifyTitle:"🚨 AI ALERT",
+notifyText:"Worker inactive for 5 minutes"
+},
+
+zh:{
+dashboard:"控制台",
+workers:"工人管理",
+monitor:"实时监控",
+cctv:"监控墙",
+riskmap:"风险地图",
+training:"安全培训",
+emergency:"应急系统",
+reports:"数据报表",
+settings:"系统设置",
+title:"企业级安全总控中心",
+subtitle:"AI工业安全实时平台",
+admin:"管理员在线",
+online:"在线工人",
+offline:"离线工人",
+risk:"高风险工人",
+alerts:"严重警报",
+weather:"🌦 AI天气预警",
+temp:"🌡 温度：39°C",
+wind:"💨 检测到强风",
+storm:"⛈ 暴雨预警",
+stopwork:"⚠ 高空作业暂停",
+score:"AI安全评分",
+scoreDesc:"工地安全状态优秀",
+riskPrediction:"⚠ AI风险预测",
+risk1:"中暑风险上升",
+risk2:"塔吊风力危险",
+risk3:"检测到疲劳风险",
+tracking:"📍 工人实时定位",
+notifyTitle:"🚨 AI警报",
+notifyText:"工人5分钟未移动"
+},
+
+kr:{
+dashboard:"대시보드",
+workers:"작업자 관리",
+monitor:"실시간 모니터링",
+cctv:"CCTV 관제",
+riskmap:"위험 지도",
+training:"안전 교육",
+emergency:"비상 시스템",
+reports:"리포트",
+settings:"설정",
+title:"기업 안전 통합 관제 센터",
+subtitle:"AI 산업 안전 실시간 플랫폼",
+admin:"관리자 온라인",
+online:"온라인 작업자",
+offline:"오프라인 작업자",
+risk:"고위험 작업자",
+alerts:"심각 경고",
+weather:"🌦 AI 날씨 경고",
+temp:"🌡 온도: 39°C",
+wind:"💨 강풍 감지",
+storm:"⛈ 폭우 경고",
+stopwork:"⚠ 고소 작업 중지",
+score:"AI 안전 점수",
+scoreDesc:"현장 안전 상태 우수",
+riskPrediction:"⚠ AI 위험 예측",
+risk1:"열사병 위험 증가",
+risk2:"타워크레인 강풍 위험",
+risk3:"피로 위험 감지",
+tracking:"📍 작업자 실시간 위치",
+notifyTitle:"🚨 AI 경고",
+notifyText:"작업자 5분간 움직임 없음"
+}
+
+}
+
+function setLanguage(lang){
+
+localStorage.setItem("language",lang)
+
+const t=translations[lang]
+
+document.querySelectorAll("[data-key]")
+.forEach(el=>{
+
+const key=
+el.getAttribute("data-key")
+
+if(t[key]){
+el.innerText=t[key]
+}
+
+})
+
+}
+
+window.onload=()=>{
+
+const saved=
+localStorage.getItem("language") || "en"
+
+setLanguage(saved)
+
+}
+
+</script>
+
+</body>
+</html>
