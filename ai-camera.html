@@ -1,1 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>AI Camera System</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+margin:0;
+background:#050816;
+font-family:Arial,sans-serif;
+color:white;
+overflow-x:hidden;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100vh;
+background:rgba(10,15,30,0.95);
+border-right:1px solid rgba(255,255,255,0.08);
+padding:30px 20px;
+backdrop-filter:blur(15px);
+overflow-y:auto;
+z-index:100;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:40px;
+}
+
+.menu-item{
+display:flex;
+align-items:center;
+gap:14px;
+padding:16px;
+margin-bottom:12px;
+border-radius:18px;
+cursor:pointer;
+transition:0.3s;
+background:rgba(255,255,255,0.03);
+}
+
+.menu-item:hover{
+background:#0ea5e9;
+transform:translateX(5px);
+}
+
+.active{
+background:#0891b2;
+}
+
+.main{
+margin-left:280px;
+padding:30px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:30px;
+padding:25px;
+}
+
+.video-box{
+position:relative;
+overflow:hidden;
+border-radius:30px;
+border:2px solid rgba(255,255,255,0.1);
+}
+
+video{
+width:100%;
+border-radius:30px;
+display:block;
+}
+
+.scan-line{
+position:absolute;
+width:100%;
+height:4px;
+background:#22d3ee;
+top:0;
+animation:scan 3s linear infinite;
+box-shadow:0 0 20px #22d3ee;
+}
+
+@keyframes scan{
+0%{top:0;}
+100%{top:100%;}
+}
+
+.detect-box{
+position:absolute;
+border:3px solid red;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0.3;}
+100%{opacity:1;}
+}
+
+.alert{
+background:rgba(239,68,68,0.15);
+border:1px solid rgba(239,68,68,0.3);
+}
+
+.warning{
+background:rgba(250,204,21,0.15);
+border:1px solid rgba(250,204,21,0.3);
+}
+
+.safe{
+background:rgba(34,197,94,0.15);
+border:1px solid rgba(34,197,94,0.3);
+}
+
+.live-dot{
+width:12px;
+height:12px;
+background:#22c55e;
+border-radius:50%;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1;}
+50%{opacity:0.3;}
+100%{opacity:1;}
+}
+
+.bg-grid{
+position:fixed;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:40px 40px;
+z-index:-1;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+padding-bottom:100px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="sidebar">
+
+<div class="logo">
+SafeSite AI
+</div>
+
+<div class="menu-item" onclick="location.href='index.html'">
+🏠 Dashboard
+</div>
+
+<div class="menu-item" onclick="location.href='workers.html'">
+👷 Workers
+</div>
+
+<div class="menu-item" onclick="location.href='monitor.html'">
+📡 Live Monitor
+</div>
+
+<div class="menu-item active">
+🎥 AI Camera
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="flex justify-between items-center flex-wrap gap-6">
+
+<div>
+
+<h1 class="text-5xl font-bold">
+AI Vision Monitoring
+</h1>
+
+<p class="text-gray-400 mt-4 text-xl">
+Real-time AI Detection & Worker Safety Analysis
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="flex items-center gap-3">
+
+<div class="live-dot"></div>
+
+<div>
+
+<p class="text-gray-400">
+CAMERA STATUS
+</p>
+
+<h2 class="text-2xl font-bold text-cyan-400">
+LIVE
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+
+<div class="lg:col-span-2">
+
+<div class="video-box">
+
+<video autoplay muted loop controls>
+
+<source src="5f8ba31764acc2ae44442a1aa64c5707.mp4" type="video/mp4">
+
+</video>
+
+<div class="scan-line"></div>
+
+<div class="detect-box"
+style="
+top:18%;
+left:28%;
+width:120px;
+height:180px;
+">
+
+</div>
+
+<div class="detect-box"
+style="
+top:42%;
+left:60%;
+width:100px;
+height:150px;
+border-color:yellow;
+">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="space-y-6">
+
+<div class="card alert">
+
+<h2 class="text-2xl font-bold text-red-400">
+🚨 No Helmet Detected
+</h2>
+
+<p class="mt-4 text-gray-300">
+
+Worker ID: KR-2031
+
+</p>
+
+<p class="mt-2 text-gray-300">
+
+Location: Sector B-12
+
+</p>
+
+</div>
+
+<div class="card warning">
+
+<h2 class="text-2xl font-bold text-yellow-300">
+⚠ Smoking Detected
+</h2>
+
+<p class="mt-4 text-gray-300">
+
+Worker ID: KR-8841
+
+</p>
+
+<p class="mt-2 text-gray-300">
+
+Risk Level: Medium
+
+</p>
+
+</div>
+
+<div class="card safe">
+
+<h2 class="text-2xl font-bold text-green-400">
+✅ PPE Compliance
+</h2>
+
+<p class="mt-4 text-gray-300">
+
+97% workers wearing safety equipment
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10">
+
+<div class="card">
+
+<p class="text-gray-400">
+AI Detections Today
+</p>
+
+<h2 id="detectCount"
+class="text-5xl font-bold text-cyan-400 mt-4">
+
+248
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+Helmet Violations
+</p>
+
+<h2 id="helmetCount"
+class="text-5xl font-bold text-red-400 mt-4">
+
+14
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+Danger Zone Alerts
+</p>
+
+<h2 id="dangerCount"
+class="text-5xl font-bold text-yellow-400 mt-4">
+
+6
+
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+AI Accuracy
+</p>
+
+<h2 id="accuracy"
+class="text-5xl font-bold text-green-400 mt-4">
+
+98%
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+<div class="card">
+
+<h2 class="text-3xl font-bold">
+AI Detection Logs
+</h2>
+
+<div class="mt-8 space-y-5">
+
+<div class="flex justify-between">
+
+<p>
+🚨 Helmet violation detected
+</p>
+
+<span class="text-red-400">
+LIVE
+</span>
+
+</div>
+
+<div class="flex justify-between">
+
+<p>
+⚠ Worker entered restricted zone
+</p>
+
+<span class="text-yellow-400">
+2 min ago
+</span>
+
+</div>
+
+<div class="flex justify-between">
+
+<p>
+📡 Camera #04 reconnected
+</p>
+
+<span class="text-cyan-400">
+5 min ago
+</span>
+
+</div>
+
+<div class="flex justify-between">
+
+<p>
+✅ PPE compliance restored
+</p>
+
+<span class="text-green-400">
+8 min ago
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-3xl font-bold">
+AI Risk Analysis
+</h2>
+
+<div class="mt-8">
+
+<div class="mb-6">
+
+<div class="flex justify-between">
+
+<p>Unsafe Behavior</p>
+<p>74%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-4 mt-2">
+
+<div class="bg-red-500 h-4 rounded-full w-[74%]"></div>
+
+</div>
+
+</div>
+
+<div class="mb-6">
+
+<div class="flex justify-between">
+
+<p>Helmet Compliance</p>
+<p>97%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-4 mt-2">
+
+<div class="bg-green-500 h-4 rounded-full w-[97%]"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="flex justify-between">
+
+<p>AI Detection Stability</p>
+<p>99%</p>
+
+</div>
+
+<div class="w-full bg-gray-700 rounded-full h-4 mt-2">
+
+<div class="bg-cyan-400 h-4 rounded-full w-[99%]"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function updateData(){
+
+document.getElementById("detectCount").innerText =
+240 + Math.floor(Math.random()*30)
+
+document.getElementById("helmetCount").innerText =
+10 + Math.floor(Math.random()*10)
+
+document.getElementById("dangerCount").innerText =
+3 + Math.floor(Math.random()*8)
+
+document.getElementById("accuracy").innerText =
+95 + Math.floor(Math.random()*5) + "%"
+
+}
+
+setInterval(updateData,3000)
+
+</script>
+
+</body>
+</html>
