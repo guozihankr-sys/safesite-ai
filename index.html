@@ -174,39 +174,15 @@ SafeSite AI
 </div>
 
 <div class="menu-item" onclick="location.href='index.html'">
-🏠 Dashboard
+🏠 <span id="navDashboard">Dashboard</span>
 </div>
 
 <div class="menu-item" onclick="location.href='workers.html'">
-👷 Workers
+👷 <span id="navWorkers">Workers</span>
 </div>
 
 <div class="menu-item" onclick="location.href='monitor.html'">
-📡 Live Monitor
-</div>
-
-<div class="menu-item" onclick="location.href='ai-camera.html'">
-🎥 AI Camera
-</div>
-
-<div class="menu-item" onclick="location.href='risks.html'">
-⚠ Risk Control
-</div>
-
-<div class="menu-item" onclick="location.href='training.html'">
-📚 Training
-</div>
-
-<div class="menu-item" onclick="location.href='emergency.html'">
-🚨 Emergency
-</div>
-
-<div class="menu-item" onclick="location.href='analytics.html'">
-📊 Analytics
-</div>
-
-<div class="menu-item" onclick="location.href='settings.html'">
-⚙ Settings
+📡 <span id="navMonitor">Live Monitor</span>
 </div>
 
 </div>
@@ -455,124 +431,6 @@ Predicted Accident Probability
 
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-
-<div class="card">
-
-<h2 class="text-2xl font-bold">
-AI Detection
-</h2>
-
-<div class="mt-6 space-y-4">
-
-<div class="flex justify-between">
-<p>No Helmet</p>
-<p class="risk-high">14</p>
-</div>
-
-<div class="flex justify-between">
-<p>Smoking</p>
-<p class="risk-medium">6</p>
-</div>
-
-<div class="flex justify-between">
-<p>Danger Zone Intrusion</p>
-<p class="risk-high">4</p>
-</div>
-
-<div class="flex justify-between">
-<p>Phone Usage</p>
-<p class="risk-medium">8</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl font-bold">
-Emergency Center
-</h2>
-
-<div class="mt-6 space-y-4">
-
-<button class="w-full bg-red-500 hover:bg-red-400 p-4 rounded-2xl text-lg font-bold">
-🚨 Emergency SOS
-</button>
-
-<button class="w-full bg-cyan-500 hover:bg-cyan-400 p-4 rounded-2xl text-lg font-bold">
-🏥 Call Hospital
-</button>
-
-<button class="w-full bg-yellow-500 hover:bg-yellow-400 p-4 rounded-2xl text-lg font-bold">
-📢 Notify Manager
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl font-bold">
-System Logs
-</h2>
-
-<div class="mt-6 space-y-5 text-sm">
-
-<p>
-✅ Worker Kim checked in
-</p>
-
-<p>
-⚠ Tower Crane tilt warning
-</p>
-
-<p>
-🚨 Helmet violation detected
-</p>
-
-<p>
-✅ Gas level normalized
-</p>
-
-<p>
-📡 AI Camera Online
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="mobile-nav">
-
-<div class="mobile-item">
-🏠<br>Home
-</div>
-
-<div class="mobile-item">
-📡<br>Monitor
-</div>
-
-<div class="mobile-item">
-⚠<br>Risk
-</div>
-
-<div class="mobile-item">
-🚨<br>SOS
-</div>
-
-<div class="mobile-item">
-⚙<br>Settings
-</div>
-
-</div>
-
 <script>
 
 const translations = {
@@ -586,7 +444,10 @@ helmet:"Helmet Compliance",
 risk:"AI Risk Index",
 monitor:"Real-time Monitoring",
 predict:"AI Risk Prediction",
-predictText:"High temperature and worker fatigue may increase accident probability by 72%. Recommend reducing high-altitude operations after 2 PM."
+predictText:"High temperature and worker fatigue may increase accident probability by 72%. Recommend reducing high-altitude operations after 2 PM.",
+dashboard:"Dashboard",
+workersNav:"Workers",
+monitorNav:"Live Monitor"
 },
 
 zh:{
@@ -598,7 +459,10 @@ helmet:"安全帽佩戴率",
 risk:"AI风险指数",
 monitor:"实时监控",
 predict:"AI风险预测",
-predictText:"高温与工人疲劳可能使事故概率提升至72%，建议下午2点后减少高空作业。"
+predictText:"高温与工人疲劳可能使事故概率提升至72%，建议下午2点后减少高空作业。",
+dashboard:"控制台",
+workersNav:"工人管理",
+monitorNav:"实时监控"
 },
 
 ko:{
@@ -610,7 +474,10 @@ helmet:"안전모 착용률",
 risk:"AI 위험 지수",
 monitor:"실시간 모니터링",
 predict:"AI 위험 예측",
-predictText:"고온과 작업자 피로로 인해 사고 확률이 72%까지 증가할 수 있습니다. 오후 2시 이후 고소 작업 축소를 권장합니다."
+predictText:"고온과 작업자 피로로 인해 사고 확률이 72%까지 증가할 수 있습니다. 오후 2시 이후 고소 작업 축소를 권장합니다.",
+dashboard:"대시보드",
+workersNav:"작업자 관리",
+monitorNav:"실시간 모니터링"
 }
 
 }
@@ -643,6 +510,15 @@ translations[lang].predict
 
 document.getElementById("predictText").innerText =
 translations[lang].predictText
+
+document.getElementById("navDashboard").innerText =
+translations[lang].dashboard
+
+document.getElementById("navWorkers").innerText =
+translations[lang].workersNav
+
+document.getElementById("navMonitor").innerText =
+translations[lang].monitorNav
 
 }
 
