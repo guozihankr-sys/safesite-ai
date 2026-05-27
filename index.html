@@ -26,31 +26,31 @@ left:0;
 top:0;
 width:260px;
 height:100vh;
-background:rgba(10,15,30,0.95);
-padding:30px 20px;
+background:#0f172a;
+padding:25px;
+overflow:auto;
 border-right:1px solid rgba(255,255,255,0.08);
-overflow-y:auto;
 }
 
 .logo{
-font-size:32px;
+font-size:34px;
 font-weight:bold;
 color:#22d3ee;
-margin-bottom:40px;
+margin-bottom:35px;
 }
 
 .menu-item{
 padding:18px;
 margin-bottom:14px;
 border-radius:18px;
+background:#1e293b;
 cursor:pointer;
-background:rgba(255,255,255,0.03);
 transition:0.3s;
 font-size:18px;
 }
 
 .menu-item:hover{
-background:#0891b2;
+background:#06b6d4;
 transform:translateX(6px);
 }
 
@@ -58,27 +58,35 @@ transform:translateX(6px);
 margin-left:280px;
 padding:30px;
 height:100vh;
-overflow-y:auto;
+overflow:auto;
+}
+
+.page{
+display:none;
+}
+
+.active{
+display:block;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-border-radius:28px;
-padding:24px;
-backdrop-filter:blur(10px);
-}
-
-.lang-btn{
-padding:10px 16px;
 background:#1e293b;
-border:none;
-color:white;
-border-radius:12px;
-cursor:pointer;
+padding:25px;
+border-radius:24px;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
 }
 
-.lang-btn:hover{
+.lang-buttons button{
+padding:10px 16px;
+border:none;
+border-radius:12px;
+background:#334155;
+color:white;
+cursor:pointer;
+margin-left:10px;
+}
+
+.lang-buttons button:hover{
 background:#06b6d4;
 }
 
@@ -120,23 +128,16 @@ animation:scan 3s linear infinite;
 100%{top:100%;}
 }
 
-.bg-grid{
-position:fixed;
-width:100%;
-height:100%;
-background-image:
-linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-background-size:40px 40px;
-z-index:-1;
+.detect-box{
+position:absolute;
+border:3px solid red;
+animation:blink 1s infinite;
 }
 
-.page{
-display:none;
-}
-
-.active-page{
-display:block;
+@keyframes blink{
+0%{opacity:1;}
+50%{opacity:0.3;}
+100%{opacity:1;}
 }
 
 @media(max-width:900px){
@@ -167,8 +168,6 @@ min-width:180px;
 
 <body>
 
-<div class="bg-grid"></div>
-
 <div class="sidebar">
 
 <div class="logo">
@@ -176,62 +175,74 @@ SafeSite AI
 </div>
 
 <div class="menu-item" onclick="showPage('dashboard')">
-🏠 <span id="navDashboard">Dashboard</span>
+🏠 <span data-key="dashboard">Dashboard</span>
 </div>
 
 <div class="menu-item" onclick="showPage('workers')">
-👷 <span id="navWorkers">Workers</span>
+👷 <span data-key="workers">Workers</span>
 </div>
 
 <div class="menu-item" onclick="showPage('monitor')">
-📡 <span id="navMonitor">Live Monitor</span>
+📡 <span data-key="monitor">Monitoring</span>
 </div>
 
 <div class="menu-item" onclick="showPage('camera')">
-🎥 <span id="navCamera">AI Camera</span>
+🎥 <span data-key="camera">AI Camera</span>
+</div>
+
+<div class="menu-item" onclick="showPage('risk')">
+⚠ <span data-key="riskMap">Risk Map</span>
+</div>
+
+<div class="menu-item" onclick="showPage('emergency')">
+🚨 <span data-key="emergency">Emergency</span>
 </div>
 
 </div>
 
 <div class="main">
 
-<div class="flex justify-end gap-3 mb-8">
+<div class="flex justify-end mb-8">
 
-<button class="lang-btn" onclick="setLang('en')">
+<div class="lang-buttons">
+
+<button onclick="setLanguage('en')">
 EN
 </button>
 
-<button class="lang-btn" onclick="setLang('zh')">
+<button onclick="setLanguage('zh')">
 中文
 </button>
 
-<button class="lang-btn" onclick="setLang('ko')">
+<button onclick="setLanguage('kr')">
 한국어
 </button>
 
 </div>
 
+</div>
+
 <!-- DASHBOARD -->
 
-<div id="dashboard" class="page active-page">
+<div id="dashboard" class="page active">
 
-<h1 id="title" class="text-5xl font-bold">
+<h1 data-key="title" class="text-5xl font-bold">
 Enterprise Safety Command Center
 </h1>
 
-<p id="subtitle" class="text-gray-400 mt-4 text-xl">
-AI-based Industrial Worker Protection Platform
+<p data-key="subtitle" class="text-gray-400 mt-4 text-xl">
+AI-based industrial worker protection platform
 </p>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
 
 <div class="card">
 
-<p id="onlineText">
+<p data-key="online">
 Workers Online
 </p>
 
-<h2 class="text-5xl font-bold text-cyan-400 mt-4">
+<h2 class="text-5xl text-cyan-400 mt-4">
 248
 </h2>
 
@@ -239,11 +250,11 @@ Workers Online
 
 <div class="card">
 
-<p id="riskText">
+<p data-key="riskWorkers">
 High Risk Workers
 </p>
 
-<h2 class="text-5xl font-bold text-red-400 mt-4">
+<h2 class="text-5xl text-red-400 mt-4">
 12
 </h2>
 
@@ -251,11 +262,11 @@ High Risk Workers
 
 <div class="card">
 
-<p id="trainingText">
+<p data-key="training">
 Training Completed
 </p>
 
-<h2 class="text-5xl font-bold text-green-400 mt-4">
+<h2 class="text-5xl text-green-400 mt-4">
 94%
 </h2>
 
@@ -269,38 +280,34 @@ Training Completed
 
 <div id="workers" class="page">
 
-<h1 id="workerTitle" class="text-5xl font-bold">
-Workers Management
+<h1 data-key="workers" class="text-5xl font-bold">
+Workers
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
 
 <div class="card">
 
-<h2 class="text-3xl font-bold">
+<h2 class="text-3xl">
 Kim Minsoo
 </h2>
 
-<p id="welderText" class="text-gray-400 mt-4">
+<p class="mt-3" data-key="welder">
 Welder
 </p>
 
-<div class="mt-8 space-y-4">
+<div class="mt-6 space-y-3">
 
-<p id="heart1">
-❤️ Heart Rate: 78 BPM
+<p>
+❤️ <span data-key="heart">Heart Rate</span>: 78 BPM
 </p>
 
-<p id="temp1">
-🌡 Temperature: 36.5°C
+<p>
+🌡 <span data-key="temp">Temperature</span>: 36.5°C
 </p>
 
-<p id="loc1">
-📍 Location: Sector A-12
-</p>
-
-<p id="helmet1">
-🪖 Helmet: Detected
+<p>
+📍 <span data-key="location">Location</span>: Sector A-12
 </p>
 
 </div>
@@ -309,30 +316,26 @@ Welder
 
 <div class="card">
 
-<h2 class="text-3xl font-bold">
+<h2 class="text-3xl">
 Lee Jisung
 </h2>
 
-<p id="highText" class="text-gray-400 mt-4">
+<p class="mt-3" data-key="high">
 High-altitude Worker
 </p>
 
-<div class="mt-8 space-y-4">
+<div class="mt-6 space-y-3">
 
-<p id="heart2">
-❤️ Heart Rate: 108 BPM
+<p>
+❤️ <span data-key="heart">Heart Rate</span>: 108 BPM
 </p>
 
-<p id="temp2">
-🌡 Temperature: 37.9°C
+<p>
+🌡 <span data-key="temp">Temperature</span>: 37.9°C
 </p>
 
-<p id="loc2">
-📍 Location: Tower B-04
-</p>
-
-<p id="fatigue2">
-⚠ Fatigue Warning
+<p>
+⚠ <span data-key="fatigue">Fatigue Warning</span>
 </p>
 
 </div>
@@ -347,8 +350,8 @@ High-altitude Worker
 
 <div id="monitor" class="page">
 
-<h1 id="monitorTitle" class="text-5xl font-bold">
-Live Monitoring
+<h1 data-key="monitor" class="text-5xl font-bold">
+Monitoring
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
@@ -359,13 +362,13 @@ Live Monitoring
 
 <div class="live-dot"></div>
 
-<h2 id="gasText" class="text-2xl">
-Gas Monitoring
+<h2 data-key="gas">
+Gas Detection
 </h2>
 
 </div>
 
-<p class="mt-6 text-5xl text-cyan-400">
+<p class="text-5xl text-cyan-400 mt-6">
 23%
 </p>
 
@@ -377,13 +380,13 @@ Gas Monitoring
 
 <div class="live-dot"></div>
 
-<h2 id="noiseText" class="text-2xl">
+<h2 data-key="noise">
 Noise Level
 </h2>
 
 </div>
 
-<p class="mt-6 text-5xl text-yellow-400">
+<p class="text-5xl text-yellow-400 mt-6">
 76db
 </p>
 
@@ -395,13 +398,13 @@ Noise Level
 
 <div class="live-dot"></div>
 
-<h2 id="tempMonitorText" class="text-2xl">
+<h2 data-key="temperature">
 Temperature
 </h2>
 
 </div>
 
-<p class="mt-6 text-5xl text-red-400">
+<p class="text-5xl text-red-400 mt-6">
 37°C
 </p>
 
@@ -411,12 +414,12 @@ Temperature
 
 </div>
 
-<!-- CAMERA -->
+<!-- AI CAMERA -->
 
 <div id="camera" class="page">
 
-<h1 id="cameraTitle" class="text-5xl font-bold">
-AI Camera Monitoring
+<h1 data-key="camera" class="text-5xl font-bold">
+AI Camera
 </h1>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
@@ -433,6 +436,10 @@ AI Camera Monitoring
 
 <div class="scan-line"></div>
 
+<div class="detect-box"
+style="top:18%;left:28%;width:120px;height:180px;">
+</div>
+
 </div>
 
 </div>
@@ -441,8 +448,11 @@ AI Camera Monitoring
 
 <div class="card">
 
-<h2 id="helmetAlert" class="text-red-400 text-2xl font-bold">
+<h2 class="text-red-400 text-2xl font-bold"
+data-key="helmetAlert">
+
 🚨 No Helmet Detected
+
 </h2>
 
 <p class="mt-4">
@@ -453,12 +463,99 @@ Worker ID: KR-2031
 
 <div class="card">
 
-<h2 id="smokeAlert" class="text-yellow-300 text-2xl font-bold">
+<h2 class="text-yellow-300 text-2xl font-bold"
+data-key="smoking">
+
 ⚠ Smoking Detected
+
 </h2>
 
 <p class="mt-4">
 Worker ID: KR-8841
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RISK MAP -->
+
+<div id="risk" class="page">
+
+<h1 data-key="riskMap" class="text-5xl font-bold">
+Risk Map
+</h1>
+
+<div class="card mt-10">
+
+<img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1400"
+style="width:100%;border-radius:20px;">
+
+<div class="mt-6">
+
+<p class="text-red-400 text-xl">
+⚠ High Risk Zone - Tower Crane
+</p>
+
+<p class="mt-3 text-yellow-300">
+⚠ Electrical Hazard Area
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- EMERGENCY -->
+
+<div id="emergency" class="page">
+
+<h1 data-key="emergency" class="text-5xl font-bold">
+Emergency
+</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+<div class="card">
+
+<h2 class="text-red-400 text-3xl">
+🚨 SOS ALERT
+</h2>
+
+<p class="mt-5">
+Emergency rescue activated
+</p>
+
+<button
+class="mt-6 px-6 py-3 bg-red-500 rounded-xl">
+CALL AMBULANCE
+</button>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-cyan-400 text-3xl">
+📞 Emergency Contacts
+</h2>
+
+<div class="mt-6 space-y-4">
+
+<p>
+Safety Manager: +82 010-2345-8821
+</p>
+
+<p>
+Hospital: +82 010-8899-9912
+</p>
+
+<p>
+Fire Department: 119
 </p>
 
 </div>
@@ -476,35 +573,38 @@ Worker ID: KR-8841
 function showPage(page){
 
 document.querySelectorAll('.page').forEach(p=>{
-p.classList.remove('active-page')
+p.classList.remove('active')
 })
 
-document.getElementById(page).classList.add('active-page')
+document.getElementById(page).classList.add('active')
 
 }
 
-const text = {
+const translations={
 
 en:{
 dashboard:"Dashboard",
 workers:"Workers",
-monitor:"Live Monitor",
+monitor:"Monitoring",
 camera:"AI Camera",
+riskMap:"Risk Map",
+emergency:"Emergency",
 title:"Enterprise Safety Command Center",
-subtitle:"AI-based Industrial Worker Protection Platform",
+subtitle:"AI-based industrial worker protection platform",
 online:"Workers Online",
-risk:"High Risk Workers",
+riskWorkers:"High Risk Workers",
 training:"Training Completed",
-workerTitle:"Workers Management",
 welder:"Welder",
 high:"High-altitude Worker",
-monitorTitle:"Live Monitoring",
-gas:"Gas Monitoring",
-noise:"Noise Level",
+heart:"Heart Rate",
 temp:"Temperature",
-cameraTitle:"AI Camera Monitoring",
-helmet:"🚨 No Helmet Detected",
-smoke:"⚠ Smoking Detected"
+location:"Location",
+fatigue:"Fatigue Warning",
+gas:"Gas Detection",
+noise:"Noise Level",
+temperature:"Temperature",
+helmetAlert:"🚨 No Helmet Detected",
+smoking:"⚠ Smoking Detected"
 },
 
 zh:{
@@ -512,83 +612,76 @@ dashboard:"控制台",
 workers:"工人管理",
 monitor:"实时监控",
 camera:"AI摄像头",
+riskMap:"风险地图",
+emergency:"应急系统",
 title:"企业级安全指挥中心",
 subtitle:"基于AI的工业工人安全平台",
 online:"在线工人",
-risk:"高风险工人",
+riskWorkers:"高风险工人",
 training:"培训完成率",
-workerTitle:"工人管理系统",
 welder:"焊工",
-high:"高空作业人员",
-monitorTitle:"实时监测",
-gas:"气体监测",
+high:"高空作业工人",
+heart:"心率",
+temp:"体温",
+location:"位置",
+fatigue:"疲劳预警",
+gas:"气体检测",
 noise:"噪音监测",
-temp:"温度监测",
-cameraTitle:"AI摄像头监控",
-helmet:"🚨 未佩戴安全帽",
-smoke:"⚠ 检测到吸烟"
+temperature:"温度监测",
+helmetAlert:"🚨 未佩戴安全帽",
+smoking:"⚠ 检测到吸烟"
 },
 
-ko:{
+kr:{
 dashboard:"대시보드",
 workers:"작업자 관리",
 monitor:"실시간 모니터링",
 camera:"AI 카메라",
+riskMap:"위험 지도",
+emergency:"비상 시스템",
 title:"기업 안전 통합 관제 센터",
 subtitle:"AI 기반 산업 근로자 보호 플랫폼",
 online:"온라인 작업자",
-risk:"고위험 작업자",
+riskWorkers:"고위험 작업자",
 training:"교육 완료율",
-workerTitle:"작업자 관리 시스템",
 welder:"용접공",
 high:"고소 작업자",
-monitorTitle:"실시간 모니터링",
-gas:"가스 모니터링",
+heart:"심박수",
+temp:"체온",
+location:"위치",
+fatigue:"피로 경고",
+gas:"가스 감지",
 noise:"소음 모니터링",
-temp:"온도 모니터링",
-cameraTitle:"AI 카메라 모니터링",
-helmet:"🚨 안전모 미착용 감지",
-smoke:"⚠ 흡연 감지"
+temperature:"온도 모니터링",
+helmetAlert:"🚨 안전모 미착용 감지",
+smoking:"⚠ 흡연 감지"
 }
 
 }
 
-function setLang(lang){
+function setLanguage(lang){
 
-localStorage.setItem("lang",lang)
+localStorage.setItem("language",lang)
 
-document.getElementById("navDashboard").innerText=text[lang].dashboard
-document.getElementById("navWorkers").innerText=text[lang].workers
-document.getElementById("navMonitor").innerText=text[lang].monitor
-document.getElementById("navCamera").innerText=text[lang].camera
+const t=translations[lang]
 
-document.getElementById("title").innerText=text[lang].title
-document.getElementById("subtitle").innerText=text[lang].subtitle
+document.querySelectorAll("[data-key]").forEach(el=>{
 
-document.getElementById("onlineText").innerText=text[lang].online
-document.getElementById("riskText").innerText=text[lang].risk
-document.getElementById("trainingText").innerText=text[lang].training
+const key=el.getAttribute("data-key")
 
-document.getElementById("workerTitle").innerText=text[lang].workerTitle
-document.getElementById("welderText").innerText=text[lang].welder
-document.getElementById("highText").innerText=text[lang].high
+if(t[key]){
+el.innerText=t[key]
+}
 
-document.getElementById("monitorTitle").innerText=text[lang].monitorTitle
-document.getElementById("gasText").innerText=text[lang].gas
-document.getElementById("noiseText").innerText=text[lang].noise
-document.getElementById("tempMonitorText").innerText=text[lang].temp
-
-document.getElementById("cameraTitle").innerText=text[lang].cameraTitle
-document.getElementById("helmetAlert").innerText=text[lang].helmet
-document.getElementById("smokeAlert").innerText=text[lang].smoke
+})
 
 }
 
-window.onload=function(){
+window.onload=()=>{
 
-const saved=localStorage.getItem("lang") || "en"
+const saved=localStorage.getItem("language") || "en"
 
-setLang(saved)
+setLanguage(saved)
 
 }
 
