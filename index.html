@@ -40,24 +40,6 @@ body{
   backdrop-filter:blur(10px);
 }
 
-.alert-box{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#ef4444;
-  padding:18px;
-  border-radius:20px;
-  display:none;
-  animation:flash 1s infinite;
-  z-index:999;
-}
-
-@keyframes flash{
-  0%{opacity:1}
-  50%{opacity:0.5}
-  100%{opacity:1}
-}
-
 .status-safe{
   color:#22c55e;
 }
@@ -75,13 +57,6 @@ body{
 </head>
 
 <body>
-
-<div id="alertBox" class="alert-box">
-
-⚠ Worker Collapse Detected<br/>
-Emergency Team Dispatched
-
-</div>
 
 <header class="flex justify-between items-center p-6">
 
@@ -112,7 +87,7 @@ class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-cyan-500">
 
 <section class="px-6">
 
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center flex-wrap gap-6">
 
 <div>
 
@@ -140,19 +115,26 @@ SYSTEM TIME
 
 <h2 id="clock"
 class="text-2xl font-bold text-cyan-400">
+
 00:00:00
+
 </h2>
 
 </div>
 
 </div>
 
-<button id="launch"
+<a href="monitor.html">
+
+<button
+id="launch"
 class="mt-10 px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-lg font-semibold glow">
 
 Launch Dashboard
 
 </button>
+
+</a>
 
 </section>
 
@@ -166,7 +148,9 @@ Workers Online
 
 <p id="workerCount"
 class="text-5xl font-bold mt-4 text-cyan-400">
+
 248
+
 </p>
 
 </div>
@@ -179,7 +163,9 @@ High Risk Alerts
 
 <p id="alertCount"
 class="text-5xl font-bold mt-4 text-red-400">
+
 12
+
 </p>
 
 </div>
@@ -192,7 +178,9 @@ Helmet Compliance
 
 <p id="helmetRate"
 class="text-5xl font-bold mt-4 text-green-400">
+
 97%
+
 </p>
 
 </div>
@@ -204,7 +192,7 @@ class="text-5xl font-bold mt-4 text-green-400">
 <h2 id="monitoring"
 class="text-4xl font-bold mb-10">
 
-Real-Time Monitoring
+AI Safety Monitoring
 
 </h2>
 
@@ -264,13 +252,13 @@ WARNING
 
 <nav class="bottom-nav flex justify-around py-4">
 
-<div class="text-center">
+<a href="index.html" class="text-center">
 🏠<br/>Home
-</div>
+</a>
 
-<div class="text-center">
+<a href="monitor.html" class="text-center">
 📡<br/>Monitor
-</div>
+</a>
 
 <div class="text-center">
 📊<br/>Analytics
@@ -296,7 +284,7 @@ subtitle:"Real-time worker safety monitoring platform",
 workers:"Workers Online",
 alerts:"High Risk Alerts",
 helmet:"Helmet Compliance",
-monitoring:"Real-Time Monitoring",
+monitoring:"AI Safety Monitoring",
 heat:"Heat Risk",
 toxic:"Toxic Gas",
 launch:"Launch Dashboard"
@@ -308,7 +296,7 @@ subtitle:"实时工人安全监测平台",
 workers:"在线工人数",
 alerts:"高风险警报",
 helmet:"安全帽佩戴率",
-monitoring:"实时监控",
+monitoring:"AI安全监测",
 heat:"高温风险",
 toxic:"有毒气体",
 launch:"进入控制台"
@@ -320,7 +308,7 @@ subtitle:"실시간 근로자 안전 모니터링 플랫폼",
 workers:"현재 작업자",
 alerts:"고위험 경고",
 helmet:"안전모 착용률",
-monitoring:"실시간 모니터링",
+monitoring:"AI 안전 모니터링",
 heat:"고온 위험",
 toxic:"유독 가스",
 launch:"대시보드 실행"
@@ -438,23 +426,6 @@ gasEl.className =
 }
 
 setInterval(updateStatus,4000)
-
-function triggerAlert(){
-
-const box =
-document.getElementById("alertBox")
-
-box.style.display = "block"
-
-setTimeout(()=>{
-
-box.style.display = "none"
-
-},5000)
-
-}
-
-setInterval(triggerAlert,15000)
 
 </script>
 
