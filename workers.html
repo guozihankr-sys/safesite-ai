@@ -1,176 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Workers Management</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="language.js"></script>
 
-<link rel="stylesheet" href="style.css">
+<style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0f172a;
+color:white;
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:260px;
+background:#111827;
+padding:25px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.logo{
+font-size:38px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:30px;
+}
+
+.menu a{
+display:block;
+padding:16px;
+margin-bottom:12px;
+border-radius:14px;
+text-decoration:none;
+color:white;
+background:#1f2937;
+transition:0.3s;
+font-size:18px;
+}
+
+.menu a:hover{
+background:#06b6d4;
+transform:translateX(5px);
+}
+
+.main{
+flex:1;
+padding:35px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.title h1{
+font-size:52px;
+margin-bottom:10px;
+}
+
+.title p{
+font-size:20px;
+color:#94a3b8;
+}
+
+.lang-buttons button{
+padding:12px 18px;
+border:none;
+border-radius:12px;
+background:#334155;
+color:white;
+cursor:pointer;
+margin-left:10px;
+font-size:16px;
+}
+
+.lang-buttons button:hover{
+background:#06b6d4;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+margin-bottom:35px;
+}
+
+.card{
+background:#1e293b;
+padding:28px;
+border-radius:22px;
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+}
+
+.card h3{
+font-size:20px;
+margin-bottom:15px;
+color:#cbd5e1;
+}
+
+.card h2{
+font-size:50px;
+color:#22d3ee;
+}
+
+.workers{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:25px;
+}
+
+.worker-card{
+background:#1e293b;
+padding:30px;
+border-radius:22px;
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+}
+
+.worker-card h2{
+font-size:36px;
+margin-bottom:10px;
+}
+
+.worker-card p{
+margin:12px 0;
+font-size:18px;
+color:#e2e8f0;
+}
+
+.status-safe{
+color:#4ade80;
+font-weight:bold;
+}
+
+.status-danger{
+color:#f87171;
+font-weight:bold;
+}
+
+@media(max-width:900px){
+
+body{
+flex-direction:column;
+}
+
+.sidebar{
+width:100%;
+flex-direction:row;
+overflow:auto;
+}
+
+.menu{
+display:flex;
+gap:10px;
+}
+
+.menu a{
+min-width:180px;
+}
+
+.title h1{
+font-size:36px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="bg-grid"></div>
-
 <div class="sidebar">
 
-<div class="logo">
-SafeSite AI
-</div>
+<div class="logo">SafeSite AI</div>
 
-<div class="menu-item" onclick="location.href='index.html'">
-🏠 <span id="navDashboard">Dashboard</span>
-</div>
+<div class="menu">
 
-<div class="menu-item">
-👷 <span id="navWorkers">Workers</span>
-</div>
+<a href="index.html">
+🏠 <span data-key="dashboard">Dashboard</span>
+</a>
 
-<div class="menu-item" onclick="location.href='monitor.html'">
-📡 <span id="navMonitor">Live Monitor</span>
-</div>
+<a href="workers.html">
+👷 <span data-key="workers">Workers Management</span>
+</a>
 
-<div class="menu-item" onclick="location.href='ai-camera.html'">
-🎥 <span id="navCamera">AI Camera</span>
+<a href="monitor.html">
+📡 <span data-key="monitor">Real-time Monitoring</span>
+</a>
+
+<a href="ai-camera.html">
+📷 <span data-key="camera">AI Camera</span>
+</a>
+
 </div>
 
 </div>
 
 <div class="main">
 
-<div class="flex justify-end gap-3 mb-8">
+<div class="topbar">
 
-<button onclick="setLang('en')" class="lang-btn">
+<div class="title">
+
+<h1 data-key="title">
+Enterprise Safety Command Center
+</h1>
+
+<p data-key="subtitle">
+AI-based industrial worker protection platform
+</p>
+
+</div>
+
+<div class="lang-buttons">
+
+<button onclick="setLanguage('en')">
 EN
 </button>
 
-<button onclick="setLang('zh')" class="lang-btn">
+<button onclick="setLanguage('zh')">
 中文
 </button>
 
-<button onclick="setLang('ko')" class="lang-btn">
+<button onclick="setLanguage('kr')">
 한국어
 </button>
 
 </div>
 
-<h1 id="mainTitle" class="text-5xl font-bold">
-Workers Management
-</h1>
+</div>
 
-<p id="mainSubtitle"
-class="text-gray-400 mt-4 text-xl">
-
-Real-time Worker Health & Safety System
-
-</p>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+<div class="cards">
 
 <div class="card">
-
-<p class="text-gray-400">
-Workers Online
-</p>
-
-<h2 class="text-5xl font-bold mt-4 text-cyan-400">
-248
-</h2>
-
+<h3 data-key="online">Workers Online</h3>
+<h2>248</h2>
 </div>
 
 <div class="card">
-
-<p class="text-gray-400">
-High Risk Workers
-</p>
-
-<h2 class="text-5xl font-bold mt-4 text-red-400">
-12
-</h2>
-
+<h3 data-key="risk">High Risk Workers</h3>
+<h2 style="color:#fb7185;">12</h2>
 </div>
 
 <div class="card">
-
-<p class="text-gray-400">
-Training Completed
-</p>
-
-<h2 class="text-5xl font-bold mt-4 text-green-400">
-94%
-</h2>
-
+<h3 data-key="training">Training Completed</h3>
+<h2 style="color:#4ade80;">94%</h2>
 </div>
 
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+<div class="workers">
 
-<div class="card">
+<div class="worker-card">
 
-<h2 class="text-3xl font-bold">
-Kim Minsoo
-</h2>
+<h2>Kim Minsoo</h2>
 
-<p class="text-gray-400 mt-4">
+<p data-key="worker1">
 Welder
 </p>
 
-<div class="mt-8 space-y-4">
-
 <p>
-❤️ Heart Rate: 78 BPM
+❤️ <span data-key="heart">Heart Rate</span>:
+78 BPM
 </p>
 
 <p>
-🌡 Temperature: 36.5°C
+🌡️ <span data-key="temp">Temperature</span>:
+36.5°C
 </p>
 
 <p>
-📍 Location: Sector A-12
+📍 <span data-key="location">Location</span>:
+Sector A-12
 </p>
 
-<p>
-🪖 Helmet: Detected
+<p class="status-safe">
+🪖 <span data-key="helmet">Helmet Detected</span>
 </p>
 
 </div>
 
-</div>
+<div class="worker-card">
 
-<div class="card">
+<h2>Lee Jisung</h2>
 
-<h2 class="text-3xl font-bold">
-Lee Jisung
-</h2>
-
-<p class="text-gray-400 mt-4">
+<p data-key="worker2">
 High-altitude Worker
 </p>
 
-<div class="mt-8 space-y-4">
-
 <p>
-❤️ Heart Rate: 108 BPM
+❤️ <span data-key="heart">Heart Rate</span>:
+108 BPM
 </p>
 
 <p>
-🌡 Temperature: 37.9°C
+🌡️ <span data-key="temp">Temperature</span>:
+37.9°C
 </p>
 
 <p>
-📍 Location: Tower B-04
+📍 <span data-key="location">Location</span>:
+Tower B-04
 </p>
 
-<p>
-⚠ Fatigue Warning
+<p class="status-danger">
+⚠️ <span data-key="fatigue">Fatigue Warning</span>
 </p>
 
 </div>
@@ -178,10 +327,6 @@ High-altitude Worker
 </div>
 
 </div>
-
-</div>
-
-<script src="app.js"></script>
 
 </body>
 </html>
