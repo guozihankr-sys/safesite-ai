@@ -1,9 +1,256 @@
-<!-- ========================= WORKERS ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SafeSite AI</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+.sidebar{
+width:260px;
+height:100vh;
+position:fixed;
+left:0;
+top:0;
+background:#111827;
+padding:30px 20px;
+border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+font-size:38px;
+font-weight:bold;
+color:#22d3ee;
+margin-bottom:40px;
+}
+
+.menu-btn{
+width:100%;
+padding:18px;
+margin-bottom:15px;
+border:none;
+border-radius:18px;
+background:#1f2937;
+color:white;
+font-size:18px;
+cursor:pointer;
+transition:0.3s;
+text-align:left;
+}
+
+.menu-btn:hover{
+background:#06b6d4;
+transform:translateX(5px);
+}
+
+.main{
+margin-left:280px;
+padding:40px;
+}
+
+.page{
+display:none;
+animation:fade 0.4s ease;
+}
+
+.active{
+display:block;
+}
+
+.card{
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:24px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.alert{
+border:1px solid #ef4444;
+box-shadow:0 0 20px rgba(239,68,68,0.4);
+}
+
+.topbar{
+display:flex;
+justify-content:flex-end;
+gap:10px;
+margin-bottom:30px;
+}
+
+.lang-btn{
+padding:10px 18px;
+border:none;
+border-radius:12px;
+background:#374151;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.lang-btn:hover{
+background:#06b6d4;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+SafeSite AI
+</div>
+
+<button class="menu-btn" onclick="showPage('dashboard')" data-key="dashboard">
+🏠 Dashboard
+</button>
+
+<button class="menu-btn" onclick="showPage('workers')" data-key="workers">
+👷 Workers
+</button>
+
+<button class="menu-btn" onclick="showPage('monitor')" data-key="monitor">
+📡 Monitoring
+</button>
+
+<button class="menu-btn" onclick="showPage('cctv')" data-key="cctv">
+🎥 AI CCTV
+</button>
+
+<button class="menu-btn" onclick="showPage('riskmap')" data-key="riskmap">
+🗺 Risk Map
+</button>
+
+<button class="menu-btn" onclick="showPage('training')" data-key="training">
+📚 Training
+</button>
+
+<button class="menu-btn" onclick="showPage('emergency')" data-key="emergency">
+🚑 Emergency
+</button>
+
+<button class="menu-btn" onclick="showPage('reports')" data-key="reports">
+📊 Reports
+</button>
+
+<button class="menu-btn" onclick="showPage('settings')" data-key="settings">
+⚙ Settings
+</button>
+
+</div>
+
+<div class="main">
+
+<div class="topbar">
+
+<button class="lang-btn" onclick="setLanguage('en')">
+EN
+</button>
+
+<button class="lang-btn" onclick="setLanguage('zh')">
+中文
+</button>
+
+<button class="lang-btn" onclick="setLanguage('kr')">
+한국어
+</button>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="page active">
+
+<h1 class="text-5xl font-bold mb-10" data-key="center">
+Enterprise Safety Command Center
+</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<div class="card">
+<h2 data-key="onlineWorkers">Workers Online</h2>
+<p class="text-6xl text-cyan-400 mt-4">248</p>
+</div>
+
+<div class="card alert">
+<h2 data-key="highRiskWorkers">High Risk Workers</h2>
+<p class="text-6xl text-red-400 mt-4">12</p>
+</div>
+
+<div class="card">
+<h2 data-key="trainingRate">Training Completed</h2>
+<p class="text-6xl text-green-400 mt-4">94%</p>
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+<div class="card">
+
+<h2 class="text-3xl mb-4">
+Kim Minsoo
+</h2>
+
+<p>❤️ Heart Rate: 78 BPM</p>
+<p>🌡 Temperature: 36.5°C</p>
+<p>📍 Sector A-12</p>
+<p class="text-green-400 mt-3">
+SAFE
+</p>
+
+</div>
+
+<div class="card alert">
+
+<h2 class="text-3xl mb-4">
+Lee Jisung
+</h2>
+
+<p>❤️ Heart Rate: 128 BPM</p>
+<p>🌡 Temperature: 39.2°C</p>
+<p>📍 Tower B-04</p>
+
+<p class="text-red-400 mt-3">
+⚠ AI Emergency Warning
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- WORKERS -->
 
 <div id="workers" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="workers">
+<h1 class="text-5xl font-bold mb-10" data-key="workers">
 Workers
 </h1>
 
@@ -15,50 +262,13 @@ Workers
 Kim Minsoo
 </h2>
 
-<div class="space-y-3">
-
-<p data-key="workerType">
-🧑‍🏭 Type: Welder
-</p>
-
-<p data-key="workerId">
-🪪 ID: 220381-XX3921
-</p>
-
-<p data-key="workerPhone">
-📞 Phone: +82 010-2345-9981
-</p>
-
-<p data-key="workerEmergency">
-🚨 Emergency Contact: Kim Family
-</p>
-
-<p data-key="workerCert">
-📄 Welding Certificate: VALID
-</p>
-
-<p data-key="workerHealth">
-🏥 Health Check: PASSED
-</p>
-
-<p data-key="workerHeart">
-❤️ Heart Rate: 78 BPM
-</p>
-
-<p data-key="workerTemp">
-🌡 Temperature: 36.5°C
-</p>
-
-<p data-key="workerFatigue">
-😴 Fatigue Index: LOW
-</p>
-
-<p class="text-green-400 font-bold"
-data-key="safe">
-SAFE
-</p>
-
-</div>
+<p>🧑‍🏭 Welder</p>
+<p>🪪 ID: 220381-XX3921</p>
+<p>📞 +82 010-2345-9981</p>
+<p>📄 Welding Certificate</p>
+<p>🏥 Medical Passed</p>
+<p>❤️ Heart Rate: 78 BPM</p>
+<p>🌡 Temperature: 36.5°C</p>
 
 </div>
 
@@ -68,35 +278,12 @@ SAFE
 Lee Jisung
 </h2>
 
-<div class="space-y-3">
-
-<p data-key="highWorker">
-🏗 High-altitude Worker
-</p>
-
-<p data-key="riskHeart">
-❤️ Heart Rate: 128 BPM
-</p>
-
-<p data-key="riskTemp">
-🌡 Temperature: 39.2°C
-</p>
-
-<p data-key="riskFatigue">
-😴 Fatigue Index: HIGH
-</p>
-
-<p data-key="riskMove">
-🕒 No movement for 5 min
-</p>
-
-<p data-key="riskWarning">
-⚠ Immediate Medical Check Required
-</p>
-
-<p class="text-red-400 font-bold"
-data-key="highRisk">
-HIGH RISK
+<p>🏗 High-altitude Worker</p>
+<p>😴 Fatigue HIGH</p>
+<p>❤️ Heart Rate: 128 BPM</p>
+<p>🌡 Temperature: 39.2°C</p>
+<p class="text-red-400">
+⚠ Immediate Medical Attention
 </p>
 
 </div>
@@ -105,448 +292,297 @@ HIGH RISK
 
 </div>
 
-</div>
-
-<!-- ========================= MONITOR ========================= -->
+<!-- MONITOR -->
 
 <div id="monitor" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="monitor">
+<h1 class="text-5xl font-bold mb-10" data-key="monitor">
 Monitoring
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 
 <div class="card">
-<h2 data-key="coGas">☣ CO Gas</h2>
+<h2>☣ CO Gas</h2>
 <p class="text-5xl text-cyan-400 mt-5">18%</p>
 </div>
 
 <div class="card alert">
-<h2 data-key="noise">🔊 Noise Risk</h2>
+<h2>🔊 Noise</h2>
 <p class="text-5xl text-red-400 mt-5">91dB</p>
 </div>
 
 <div class="card">
-<h2 data-key="dust">🌫 Dust Density</h2>
+<h2>🌫 Dust</h2>
 <p class="text-5xl text-yellow-400 mt-5">65%</p>
 </div>
 
 <div class="card">
-<h2 data-key="humidity">💧 Humidity</h2>
+<h2>💧 Humidity</h2>
 <p class="text-5xl text-cyan-400 mt-5">74%</p>
 </div>
 
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-
-<div class="card">
-
-<h2 class="text-2xl text-cyan-400"
-data-key="towerStatus">
-🏗 Tower Crane Status
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p data-key="towerTilt">
-📐 Tilt Angle: NORMAL
-</p>
-
-<p data-key="towerWind">
-💨 Wind Speed: 31km/h
-</p>
-
-<p data-key="towerSafe">
-✅ Stable Operation
-</p>
-
 </div>
 
-</div>
-
-<div class="card alert">
-
-<h2 class="text-2xl text-red-400"
-data-key="electricAlert">
-⚡ Electric Leakage Risk
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p data-key="electricVoltage">
-High Voltage Detected
-</p>
-
-<p data-key="shutdown">
-AI recommends shutdown
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ========================= CCTV ========================= -->
+<!-- CCTV -->
 
 <div id="cctv" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="cctv">
-CCTV Wall
+<h1 class="text-5xl font-bold mb-10" data-key="cctv">
+AI CCTV
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
 <div class="card">
-
 <div class="bg-black rounded-xl h-64 flex items-center justify-center">
 CAMERA A
 </div>
-
-<div class="mt-4">
-
-<p class="text-green-400 font-bold"
-data-key="normal">
-✅ Normal Activity
+<p class="text-green-400 mt-4">
+✅ Normal
 </p>
-
-</div>
-
 </div>
 
 <div class="card alert">
-
 <div class="bg-black rounded-xl h-64 flex items-center justify-center">
 CAMERA B
 </div>
-
-<div class="mt-4">
-
-<p class="text-red-400 font-bold"
-data-key="helmetMissing">
-🚨 Helmet Missing Detected
+<p class="text-red-400 mt-4">
+🚨 Helmet Missing
 </p>
-
-<p class="mt-2"
-data-key="cameraAction">
-Supervisor Assigned
-</p>
-
-</div>
-
 </div>
 
 <div class="card">
-
 <div class="bg-black rounded-xl h-64 flex items-center justify-center">
 CAMERA C
 </div>
-
-<div class="mt-4">
-
-<p class="text-yellow-400 font-bold"
-data-key="smoking">
+<p class="text-yellow-400 mt-4">
 🚬 Smoking Detected
 </p>
-
-</div>
-
 </div>
 
 <div class="card alert">
-
 <div class="bg-black rounded-xl h-64 flex items-center justify-center">
 CAMERA D
 </div>
-
-<div class="mt-4">
-
-<p class="text-red-400 font-bold"
-data-key="restricted">
-🚨 Restricted Area Entry
+<p class="text-red-400 mt-4">
+⚠ Restricted Area Entry
 </p>
-
 </div>
 
 </div>
 
 </div>
 
-<div class="card mt-8">
-
-<h2 class="text-2xl text-cyan-400 mb-5"
-data-key="eventLog">
-📋 AI Event Log
-</h2>
-
-<div class="space-y-3">
-
-<p>14:01 - Helmet Missing</p>
-<p>14:03 - Smoking Detected</p>
-<p>14:06 - Restricted Area Entry</p>
-<p>14:09 - Supervisor Assigned</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ========================= RISK MAP ========================= -->
+<!-- RISK MAP -->
 
 <div id="riskmap" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="riskmap">
+<h1 class="text-5xl font-bold mb-10" data-key="riskmap">
 Risk Map
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
 <div class="card bg-green-900">
-<h2 class="text-3xl" data-key="zoneA">🟢 Zone A SAFE</h2>
-<p class="mt-4" data-key="zoneASafe">No active danger</p>
+<h2>🟢 Zone A SAFE</h2>
 </div>
 
 <div class="card bg-red-900">
-<h2 class="text-3xl" data-key="zoneB">🔴 Zone B HIGH RISK</h2>
-<p class="mt-4" data-key="zoneBRisk">Toxic gas detected</p>
+<h2>🔴 Zone B HIGH RISK</h2>
 </div>
 
 <div class="card bg-yellow-900">
-<h2 class="text-3xl" data-key="zoneC">🟡 Zone C WARNING</h2>
-<p class="mt-4" data-key="zoneCWarning">Heat risk increasing</p>
+<h2>🟡 Zone C WARNING</h2>
 </div>
 
 <div class="card bg-red-950">
-<h2 class="text-3xl" data-key="zoneD">⚡ Zone D ELECTRIC RISK</h2>
-<p class="mt-4" data-key="zoneDElectric">High voltage detected</p>
+<h2>⚡ Zone D ELECTRIC RISK</h2>
 </div>
 
 </div>
 
 </div>
 
-<!-- ========================= TRAINING ========================= -->
+<!-- TRAINING -->
 
 <div id="training" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="training">
+<h1 class="text-5xl font-bold mb-10" data-key="training">
 Training
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
 <div class="card">
-
-<h2 class="text-2xl"
-data-key="courses">
-📚 Safety Courses
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p>✔ Fall Protection</p>
+<h2>📚 Safety Courses</h2>
+<p class="mt-4">✔ Fall Protection</p>
 <p>✔ Fire Safety</p>
 <p>✔ Electric Emergency</p>
-<p>✔ Machinery Safety</p>
-
-</div>
-
 </div>
 
 <div class="card alert">
-
-<h2 class="text-2xl text-red-400"
-data-key="exam">
-📝 Certification Exam
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p>Kim Minsoo — 92</p>
-
-<p class="text-red-400">
-Lee Jisung — FAILED
-</p>
-
-<p data-key="noWork">
-⚠ Access Restricted Until Passed
-</p>
-
+<h2>📝 Certification Exam</h2>
+<p class="mt-4">Kim Minsoo — 92</p>
+<p class="text-red-400">Lee Jisung — FAILED</p>
 </div>
 
 </div>
 
 </div>
 
-</div>
-
-<!-- ========================= EMERGENCY ========================= -->
+<!-- EMERGENCY -->
 
 <div id="emergency" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="emergency">
+<h1 class="text-5xl font-bold mb-10" data-key="emergency">
 Emergency
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
 <div class="card alert">
-
-<h2 class="text-2xl text-red-400">
-🚑 SOS
-</h2>
-
-<p class="mt-5"
-data-key="ambulance">
-Nearest Ambulance Dispatched
-</p>
-
+<h2>🚑 SOS</h2>
+<p class="mt-5">Ambulance Dispatched</p>
 </div>
 
 <div class="card">
-
-<h2 class="text-2xl">
-🏥 Hospital
-</h2>
-
-<p class="mt-5">
-Seoul Central Medical Center
-</p>
-
+<h2>🏥 Hospital</h2>
+<p class="mt-5">Seoul Central Medical</p>
 </div>
 
 <div class="card">
-
-<h2 class="text-2xl">
-👮 Safety Supervisor
-</h2>
-
-<p class="mt-5">
-Kim Supervisor
-</p>
-
+<h2>👮 Safety Supervisor</h2>
+<p class="mt-5">Kim Supervisor</p>
 </div>
 
 </div>
 
 </div>
 
-<!-- ========================= REPORTS ========================= -->
+<!-- REPORTS -->
 
 <div id="reports" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="reports">
+<h1 class="text-5xl font-bold mb-10" data-key="reports">
 Reports
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
 <div class="card">
-
-<h2 class="text-2xl"
-data-key="monthly">
-📊 Monthly Report
-</h2>
-
-<div class="mt-5 space-y-3">
-
-<p>248 Workers Active</p>
+<h2>📊 Monthly Report</h2>
+<p class="mt-4">248 Workers Active</p>
 <p>12 Critical Alerts</p>
 <p>95% Helmet Compliance</p>
-<p>18% Accident Reduction</p>
-
-</div>
-
 </div>
 
 <div class="card">
-
-<h2 class="text-2xl"
-data-key="aiSummary">
-🤖 AI Summary
-</h2>
-
-<p class="mt-5"
-data-key="summaryText">
+<h2>🤖 AI Summary</h2>
+<p class="mt-4">
 Heat risks increased this month
 </p>
-
 </div>
 
 </div>
 
 </div>
 
-<!-- ========================= SETTINGS ========================= -->
+<!-- SETTINGS -->
 
 <div id="settings" class="page">
 
-<h1 class="text-5xl font-bold mb-10"
-data-key="settings">
+<h1 class="text-5xl font-bold mb-10" data-key="settings">
 Settings
 </h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
 <div class="card">
-
-<h2 class="text-2xl">
-🌐 Language
-</h2>
-
-<p class="mt-5">
-English / 中文 / 한국어
-</p>
-
+<h2>🌐 Language</h2>
+<p class="mt-5">English / 中文 / 한국어</p>
 </div>
 
 <div class="card">
-
-<h2 class="text-2xl">
-🤖 AI Sensitivity
-</h2>
-
-<p class="mt-5">
-HIGH
-</p>
-
+<h2>🔔 Notification</h2>
+<p class="mt-5">SMS + Voice + Email</p>
 </div>
-
-<div class="card">
-
-<h2 class="text-2xl">
-🔔 Notification
-</h2>
-
-<p class="mt-5">
-SMS + Voice + Email
-</p>
-
-</div>
-
-<div class="card">
-
-<h2 class="text-2xl">
-🎥 Camera System
-</h2>
-
-<p class="mt-5">
-12 AI Cameras Connected
-</p>
 
 </div>
 
 </div>
 
 </div>
+
+<script>
+
+function showPage(id){
+
+document.querySelectorAll('.page').forEach(page=>{
+page.classList.remove('active');
+});
+
+document.getElementById(id).classList.add('active');
+
+}
+
+const translations={
+
+zh:{
+dashboard:"控制台",
+workers:"工人管理",
+monitor:"实时监测",
+cctv:"AI摄像头",
+riskmap:"风险地图",
+training:"安全培训",
+emergency:"应急管理",
+reports:"数据报表",
+settings:"系统设置",
+center:"企业级安全指挥中心",
+onlineWorkers:"在线工人",
+highRiskWorkers:"高风险工人",
+trainingRate:"培训完成率"
+},
+
+kr:{
+dashboard:"대시보드",
+workers:"작업자 관리",
+monitor:"실시간 모니터링",
+cctv:"AI 카메라",
+riskmap:"위험 지도",
+training:"안전 교육",
+emergency:"비상 관리",
+reports:"데이터 보고서",
+settings:"시스템 설정",
+center:"기업 안전 통합 관제 센터",
+onlineWorkers:"온라인 작업자",
+highRiskWorkers:"고위험 작업자",
+trainingRate:"교육 완료율"
+}
+
+};
+
+function setLanguage(lang){
+
+document.querySelectorAll("[data-key]").forEach(el=>{
+
+const key=el.getAttribute("data-key");
+
+if(translations[lang] && translations[lang][key]){
+el.innerText=translations[lang][key];
+}
+
+if(lang==="en"){
+location.reload();
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
